@@ -1,16 +1,6 @@
-# Deneir Script
+# LM-OWD
 
-This is a template repository for creating an experiment environment in Python.
-Its intention is to speed up the research process - reducing the repository
-structure design - and to have it clean and concise throught multiple
-experiments.
-
-Inspired by the [cookiecutter][cookiecutter] folder structure.
-
-**Instructions:**
-
-- Search for all TODOs in the project and add the appropriate values
-- Rename this READMEs title and description
+This project contains the code for running the LM-OWD experiments.
 
 ## ☑️ Requirements
 
@@ -53,10 +43,10 @@ Install [conda][conda], a program for creating python virtual environments. Then
 
 ```bash
 # create a new virtual environment
-conda create --name [TODO] python=3.8 pip
+conda create --name lm_owd python=3.8 pip
 
 # activate the environment
-conda activate [TODO]
+conda activate lm_owd
 
 # deactivate the environment
 deactivate
@@ -126,7 +116,19 @@ TODO: Paper
 
 ### 📓 Related work
 
-TODO: Related paper
+T. Zhang, V. Kishore, F. Wu, K. Q. Weinberger, and Y. Artzi, “BERTScore: \
+Evaluating Text Generation with BERT,” Apr. 2020. Accessed: Jun. 10, 2022. \
+[Online]. Available: http://www.openreview.net/pdf?id=SkeHuCVFDr
+
+W. Zhao, M. Peyrard, F. Liu, Y. Gao, C. M. Meyer, and S. Eger, “MoverScore: Text \
+generation evaluating with contextualized embeddings and earth mover distance,” \
+presented at the Proceedings of the 2019 Conference on Empirical Methods in Natural \
+Language Processing and the 9th International Joint Conference on Natural Language \
+Processing (EMNLP-IJCNLP), Hong Kong, China, 2019. doi: 10.18653/v1/d19-1053.
+
+B. Su and G. Hua, “Order-preserving Wasserstein distance for sequence matching,” \
+presented at the 2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), \
+Honolulu, HI, Jul. 2017. doi: 10.1109/cvpr.2017.310.
 
 ## 🚧 Work In Progress
 
@@ -144,7 +146,6 @@ This work is developed by [Department of Artificial Intelligence][ailab] at [Joz
 
 This work is supported by the Slovenian Research Agency and the TODO.
 
-[cookiecutter]: https://drivendata.github.io/cookiecutter-data-science/
 [python]: https://www.python.org/
 [conda]: https://www.anaconda.com/
 [git]: https://git-scm.com/

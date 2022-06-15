@@ -10,4 +10,6 @@ plotly
 tqdm
 python-dotenv
 black
+torch
+pytorch-lightning
 dvc
