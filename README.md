@@ -116,18 +116,18 @@ TODO: Paper
 
 ### 📓 Related work
 
-T. Zhang, V. Kishore, F. Wu, K. Q. Weinberger, and Y. Artzi, “BERTScore: \
-Evaluating Text Generation with BERT,” Apr. 2020. Accessed: Jun. 10, 2022. \
+T. Zhang, V. Kishore, F. Wu, K. Q. Weinberger, and Y. Artzi, “BERTScore:
+Evaluating Text Generation with BERT,” Apr. 2020. Accessed: Jun. 10, 2022.
 [Online]. Available: http://www.openreview.net/pdf?id=SkeHuCVFDr
 
-W. Zhao, M. Peyrard, F. Liu, Y. Gao, C. M. Meyer, and S. Eger, “MoverScore: Text \
-generation evaluating with contextualized embeddings and earth mover distance,” \
-presented at the Proceedings of the 2019 Conference on Empirical Methods in Natural \
-Language Processing and the 9th International Joint Conference on Natural Language \
+W. Zhao, M. Peyrard, F. Liu, Y. Gao, C. M. Meyer, and S. Eger, “MoverScore: Text
+generation evaluating with contextualized embeddings and earth mover distance,”
+presented at the Proceedings of the 2019 Conference on Empirical Methods in Natural
+Language Processing and the 9th International Joint Conference on Natural Language
 Processing (EMNLP-IJCNLP), Hong Kong, China, 2019. doi: 10.18653/v1/d19-1053.
 
-B. Su and G. Hua, “Order-preserving Wasserstein distance for sequence matching,” \
-presented at the 2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), \
+B. Su and G. Hua, “Order-preserving Wasserstein distance for sequence matching,”
+presented at the 2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR),
 Honolulu, HI, Jul. 2017. doi: 10.1109/cvpr.2017.310.
 
 ## 🚧 Work In Progress
