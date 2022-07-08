@@ -7,10 +7,10 @@ with open("requirements.txt", "r") as fh:
     requirements = fh.readlines()
 
 setup(
-    name="TODO",
+    name="Seq-LM-EMD",
     version="0.0.0",
-    author="TODO",
-    author_email="TODO",
+    author="Erik Novak",
+    author_email="erik.novak@ijs.si",
     description="Setup the experiment environment",
     long_description=long_description,
     long_description_content_type="text/markdown",

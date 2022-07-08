@@ -1,6 +1,6 @@
-# LM-OWD
+# Seq-LM-EMD
 
-This project contains the code for running the LM-OWD experiments.
+This project contains the code for running the Seq-LM-EMD experiments.
 
 ## ☑️ Requirements
 
@@ -43,10 +43,10 @@ Install [conda][conda], a program for creating python virtual environments. Then
 
 ```bash
 # create a new virtual environment
-conda create --name lm_owd python=3.8 pip
+conda create --name seq-lm-emd python=3.8 pip
 
 # activate the environment
-conda activate lm_owd
+conda activate seq-lm-emd
 
 # deactivate the environment
 deactivate
