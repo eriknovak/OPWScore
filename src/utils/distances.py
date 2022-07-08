@@ -122,7 +122,12 @@ def seq_sinkhorn():
 
 
 def get_wasserstein_dist(
-    source_embed, target_embed, source_attns, target_attns, reg, nit
+    source_embed: torch.Tensor,
+    target_embed: torch.Tensor,
+    source_attns: torch.Tensor,
+    target_attns: torch.Tensor,
+    reg: float,
+    nit: int,
 ):
     """Gets the Wasserstein distances between the source and target embeddings.
     Args:
@@ -167,7 +172,7 @@ def prep_relevant_embeds(embed: torch.Tensor, attns: torch.Tensor):
     return embed * attns.unsqueeze(2).repeat(1, 1, embed.shape[2])
 
 
-def __get_cosine_dist(source_embed, target_embed):
+def __get_cosine_dist(source_embed: torch.Tensor, target_embed: torch.Tensor):
     """Calculate the cosine distance between the source and target embeddings
     Args:
         source_embed: The source embeddings.
@@ -187,7 +192,12 @@ def __get_cosine_dist(source_embed, target_embed):
     return distances, None, None
 
 
-def get_cls_dist(source_embed, target_embed, source_attns, target_attns):
+def get_cls_dist(
+    source_embed: torch.Tensor,
+    target_embed: torch.Tensor,
+    source_attns: torch.Tensor,
+    target_attns: torch.Tensor,
+):
     """Gets the cosine distance using the first [CLS] token
     Args:
         source_embed: The source embeddings.
@@ -208,7 +218,12 @@ def get_cls_dist(source_embed, target_embed, source_attns, target_attns):
     return __get_cosine_dist(source_embed, target_embed)
 
 
-def get_max_dist(source_embed, target_embed, source_attns, target_attns):
+def get_max_dist(
+    source_embed: torch.Tensor,
+    target_embed: torch.Tensor,
+    source_attns: torch.Tensor,
+    target_attns: torch.Tensor,
+):
     """Get the cosine distance using the maximum values of the embeddings
     Args:
         source_embed: The source embeddings.
@@ -229,7 +244,12 @@ def get_max_dist(source_embed, target_embed, source_attns, target_attns):
     return __get_cosine_dist(source_embed, target_embed)
 
 
-def get_mean_dist(source_embed, target_embed, source_attns, target_attns):
+def get_mean_dist(
+    source_embed: torch.Tensor,
+    target_embed: torch.Tensor,
+    source_attns: torch.Tensor,
+    target_attns: torch.Tensor,
+):
     """Get the cosine distance using the mean values of the embeddings
     Args:
         source_embed: The source embeddings.
