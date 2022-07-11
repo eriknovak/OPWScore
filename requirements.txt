@@ -12,4 +12,5 @@ python-dotenv
 black
 torch
 pytorch-lightning
+pyyaml
 dvc

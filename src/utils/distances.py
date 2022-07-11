@@ -264,7 +264,7 @@ def get_mean_dist(
     """
 
     # get the maximum values of the embeddings
-    source_embed, _ = prep_relevant_embeds(source_embed, source_attns).mean(dim=1)
-    target_embed, _ = prep_relevant_embeds(target_embed, target_attns).mean(dim=1)
+    source_embed = prep_relevant_embeds(source_embed, source_attns).mean(dim=1)
+    target_embed = prep_relevant_embeds(target_embed, target_attns).mean(dim=1)
     # return the cosine distance
     return __get_cosine_dist(source_embed, target_embed)

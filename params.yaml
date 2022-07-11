@@ -1,3 +1,9 @@
+model_params:
+  model: "sentence-transformers/all-mpnet-base-v2"
+  tokenizer: "sentence-transformers/all-mpnet-base-v2"
+  reg: 0.1
+  nit: 100
+
 training:
   seed: 0
   epochs: 1
@@ -6,4 +12,3 @@ training:
   learning_rate: 0.000001
   weight_decay: 0.01
   grad_update_step: 1
-  
