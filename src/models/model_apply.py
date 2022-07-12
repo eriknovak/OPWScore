@@ -1,7 +1,7 @@
 import os
 import yaml
 
-from src.models.model import SeqMoverScore
+from src.models.model import Seq_LM_EMD
 
 # =====================================
 # Import Training Parameters
@@ -18,7 +18,7 @@ nit = params["model_params"]["nit"]
 # Define the Model
 # =====================================
 
-model = SeqMoverScore(model=model_name, tokenizer=tokenizer_name, reg=reg, nit=nit)
+model = Seq_LM_EMD(model=model_name, tokenizer=tokenizer_name, reg=reg, nit=nit)
 
 # =====================================
 # Apply the Model on an Example

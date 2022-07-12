@@ -15,6 +15,7 @@ from typing import List
 
 # distance functions
 from src.utils.distances import (
+    get_seq_wasserstein_dist,
     get_wasserstein_dist,
     get_cls_dist,
     get_max_dist,
@@ -22,13 +23,14 @@ from src.utils.distances import (
 )
 
 
-class SeqMoverScore(pl.LightningModule):
+class Seq_LM_EMD(pl.LightningModule):
     def __init__(
         self,
         model: str,
         tokenizer: str,
         dist_type: str = "emd",
-        reg: float = 0.1,
+        reg1: float = 0.1,
+        reg2: float = 0.1,
         nit: int = 100,
         lr: float = 1e-5,
         eps: float = 1e-5,
@@ -41,7 +43,7 @@ class SeqMoverScore(pl.LightningModule):
 
         # save the model hyperparameters
         self.save_hyperparameters(
-            "model", "tokenizer", "dist_type", "reg", "nit", "lr", "eps", "wd"
+            "model", "tokenizer", "dist_type", "reg1", "reg2", "nit", "lr", "eps", "wd"
         )
         self.model = AutoModel.from_pretrained(model)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
@@ -70,13 +72,26 @@ class SeqMoverScore(pl.LightningModule):
         sys_attns = sys_inputs["attention_mask"].repeat(ref_embed.shape[0], 1)
         ref_attns = ref_inputs["attention_mask"]
 
-        if self.hparams.dist_type == "emd":
+        # TODO: remove special tokens ([CLS], [SEP], <s>, </s>) from tensors
+
+        if self.hparams.dist_type == "seq":
+            return get_seq_wasserstein_dist(
+                sys_embed,
+                ref_embed,
+                sys_attns,
+                ref_attns,
+                self.hparams.reg1,
+                self.hparams.reg2,
+                self.hparams.nit,
+            )
+
+        elif self.hparams.dist_type == "emd":
             return get_wasserstein_dist(
                 sys_embed,
                 ref_embed,
                 sys_attns,
                 ref_attns,
-                self.hparams.reg,
+                self.hparams.reg1,
                 self.hparams.nit,
             )
         elif self.hparams.dist_type == "cls":
