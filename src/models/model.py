@@ -48,10 +48,10 @@ class Seq_LM_EMD(pl.LightningModule):
         self.model = AutoModel.from_pretrained(model)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
 
-    def forward(self, system: str, references: List[str]):
+    def forward(self, system: str or List[str], references: List[str]):
         """Calculate the distance between the system and references
         Args:
-            system (str): The system generated text.
+            system (str or List[str]): The system generated text.
             references (List[str]): The list of reference texts.
         Returns:
             (distances, cost_matrix, transport_matrix): Returns the distances,
@@ -67,10 +67,13 @@ class Seq_LM_EMD(pl.LightningModule):
         sys_embed = self.model(**sys_inputs)["last_hidden_state"]
         ref_embed = self.model(**ref_inputs)["last_hidden_state"]
 
-        # duplicate the sys_embeds and sys_attns to match ref_embed batch size
-        sys_embed = sys_embed.repeat(ref_embed.shape[0], 1, 1)
-        sys_attns = sys_inputs["attention_mask"].repeat(ref_embed.shape[0], 1)
+        sys_attns = sys_inputs["attention_mask"]
         ref_attns = ref_inputs["attention_mask"]
+
+        if type(system) is not list:
+            # duplicate the sys_embeds and sys_attns to match ref_embed batch size
+            sys_embed = sys_embed.repeat(ref_embed.shape[0], 1, 1)
+            sys_attns = sys_inputs["attention_mask"].repeat(ref_embed.shape[0], 1)
 
         # TODO: remove special tokens ([CLS], [SEP], <s>, </s>) from tensors
 
@@ -103,18 +106,17 @@ class Seq_LM_EMD(pl.LightningModule):
         else:
             raise Exception(f"Unsupported distance type: {self.hparams.dist_type}")
 
-    def visualize(self, system: str, references: List[str], image_path: str):
+    def visualize(
+        self, system: str or List[str], references: List[str], image_path: str = None
+    ):
         """Visualize the distances between the system and references
         Args:
             system (str): The system generated text.
             references (List[str]): The list of reference texts.
+            image_path (str): The path to where the image is stored (optional).
         Returns:
             (None): Returns None.
         """
-
-        # check if image path is provided
-        if not image_path:
-            raise Exception(f"Image path not provided!")
 
         # check if visualization is supported
         if self.hparams.dist_type not in ["seq", "emd"]:
@@ -148,6 +150,8 @@ class Seq_LM_EMD(pl.LightningModule):
         fig, big_axes = plt.subplots(
             nrows=batch_size, ncols=1, figsize=(x_size, y_size)
         )
+        if batch_size == 1:
+            big_axes = [big_axes]
 
         # figure preprocessing
         for big_ax in big_axes:
@@ -168,7 +172,9 @@ class Seq_LM_EMD(pl.LightningModule):
             ax_transport = fig.add_subplot(batch_size, 2, 2 * batch_id + 2)
 
             # system and document tokens
-            sys_tokens = self.tokenizer.convert_ids_to_tokens(sys_inputs[0])
+            sys_tokens = self.tokenizer.convert_ids_to_tokens(
+                sys_inputs[batch_id] if type(system) is list else sys_inputs[0]
+            )
             ref_tokens = self.tokenizer.convert_ids_to_tokens(ref_inputs[batch_id])
 
             # get the special token's ids
