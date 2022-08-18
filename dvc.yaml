@@ -1,6 +1,6 @@
 stages:
   test:
-    cmd: python src/models/model_test.py sts,wmt18
+    cmd: python src/models/model_test.py
     deps:
       - src/models/model.py
       - src/models/model_test.py
@@ -29,9 +29,8 @@ stages:
       - results/wmt18/scores.en-zh.json
 
   evaluate:
-    cmd: python src/models/model_eval.py sts,wmt18
+    cmd: python src/models/model_eval.py
     deps:
-      - src/models/model.py
       - src/models/model_eval.py
       - results/sts/scores.json
       - results/wmt18/scores.cs-en.json
@@ -48,13 +47,6 @@ stages:
       - results/wmt18/scores.en-ru.json
       - results/wmt18/scores.en-tr.json
       - results/wmt18/scores.en-zh.json
-    params:
-      - model_params.model
-      - model_params.tokenizer
-      - model_params.dist_type
-      - model_params.reg1
-      - model_params.reg2
-      - model_params.nit
     metrics:
       - results/eval.sts.json:
           cache: false
