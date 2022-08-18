@@ -21,9 +21,9 @@ params = yaml.safe_load(open("params.yaml"))
 model_name = params["model_params"]["model"]
 tokenizer_name = params["model_params"]["tokenizer"]
 dist_type = params["model_params"]["dist_type"]
-reg1 = float(params["model_params"]["reg1"])
-reg2 = float(params["model_params"]["reg2"])
-nit = int(params["model_params"]["nit"])
+reg1 = params["model_params"]["reg1"]
+reg2 = params["model_params"]["reg2"]
+nit = params["model_params"]["nit"]
 
 # =====================================
 # Define the Model
