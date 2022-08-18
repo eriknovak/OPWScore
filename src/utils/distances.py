@@ -22,7 +22,7 @@ def get_cost_matrix(source: torch.Tensor, target: torch.Tensor):
     # calculate and return the cost matrix
     cost_matrix = source.matmul(target.transpose(1, 2))
     cost_matrix = torch.ones_like(cost_matrix) - cost_matrix
-    return cost_matrix
+    return torch.exp(cost_matrix) - 1
 
 
 def get_weight_dist(attn: torch.FloatTensor):

@@ -1,36 +1,88 @@
 stages:
-  preprocess:
-    cmd: python src/data/preprocess.py
+  test:
+    cmd: python src/models/model_test.py sts,wmt18
     deps:
-      - data
-    params:
-      - param1
-      - param2
-    outs:
-      - clean.txt
-
-  train:
-    cmd: python src/models/model_train.py models/model.pth data
-    deps:
-      - data
-      - src/models/model_train.py
       - src/models/model.py
+      - src/models/model_test.py
     params:
-      - param1
-      - param2
+      - model_params.model
+      - model_params.tokenizer
+      - model_params.dist_type
+      - model_params.reg1
+      - model_params.reg2
+      - model_params.nit
     outs:
-      - models/model.pth
-      - data/train_losses
+      - results/sts/scores.json
+      - results/wmt18/scores.cs-en.json
+      - results/wmt18/scores.de-en.json
+      - results/wmt18/scores.et-en.json
+      - results/wmt18/scores.fi-en.json
+      - results/wmt18/scores.ru-en.json
+      - results/wmt18/scores.tr-en.json
+      - results/wmt18/scores.zh-en.json
+      - results/wmt18/scores.en-cs.json
+      - results/wmt18/scores.en-de.json
+      - results/wmt18/scores.en-et.json
+      - results/wmt18/scores.en-fi.json
+      - results/wmt18/scores.en-ru.json
+      - results/wmt18/scores.en-tr.json
+      - results/wmt18/scores.en-zh.json
 
   evaluate:
-    cmd: python src/models/model_evaluate.py models/model.pth data
+    cmd: python src/models/model_eval.py sts,wmt18
     deps:
-      - data
-      - src/models/model_evaluate.py
       - src/models/model.py
-      - models/model.pth
+      - src/models/model_eval.py
+      - results/sts/scores.json
+      - results/wmt18/scores.cs-en.json
+      - results/wmt18/scores.de-en.json
+      - results/wmt18/scores.et-en.json
+      - results/wmt18/scores.fi-en.json
+      - results/wmt18/scores.ru-en.json
+      - results/wmt18/scores.tr-en.json
+      - results/wmt18/scores.zh-en.json
+      - results/wmt18/scores.en-cs.json
+      - results/wmt18/scores.en-de.json
+      - results/wmt18/scores.en-et.json
+      - results/wmt18/scores.en-fi.json
+      - results/wmt18/scores.en-ru.json
+      - results/wmt18/scores.en-tr.json
+      - results/wmt18/scores.en-zh.json
     params:
-      - param1
-      - param2
-    outs:
-      - results/scores.json
+      - model_params.model
+      - model_params.tokenizer
+      - model_params.dist_type
+      - model_params.reg1
+      - model_params.reg2
+      - model_params.nit
+    metrics:
+      - results/eval.sts.json:
+          cache: false
+      - results/eval.wmt18.cs-en.json:
+          cache: false
+      - results/eval.wmt18.de-en.json:
+          cache: false
+      - results/eval.wmt18.et-en.json:
+          cache: false
+      - results/eval.wmt18.fi-en.json:
+          cache: false
+      - results/eval.wmt18.ru-en.json:
+          cache: false
+      - results/eval.wmt18.tr-en.json:
+          cache: false
+      - results/eval.wmt18.zh-en.json:
+          cache: false
+      - results/eval.wmt18.en-cs.json:
+          cache: false
+      - results/eval.wmt18.en-de.json:
+          cache: false
+      - results/eval.wmt18.en-et.json:
+          cache: false
+      - results/eval.wmt18.en-fi.json:
+          cache: false
+      - results/eval.wmt18.en-ru.json:
+          cache: false
+      - results/eval.wmt18.en-tr.json:
+          cache: false
+      - results/eval.wmt18.en-zh.json:
+          cache: false

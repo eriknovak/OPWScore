@@ -11,14 +11,23 @@ params = yaml.safe_load(open("params.yaml"))
 
 model_name = params["model_params"]["model"]
 tokenizer_name = params["model_params"]["tokenizer"]
-reg = params["model_params"]["reg"]
+dist_type = params["model_params"]["dist_type"]
+reg1 = params["model_params"]["reg1"]
+reg2 = params["model_params"]["reg2"]
 nit = params["model_params"]["nit"]
 
 # =====================================
 # Define the Model
 # =====================================
 
-model = Seq_LM_EMD(model=model_name, tokenizer=tokenizer_name, reg=reg, nit=nit)
+model = Seq_LM_EMD(
+    model=model_name,
+    tokenizer=tokenizer_name,
+    dist_type=dist_type,
+    reg1=reg1,
+    reg2=reg2,
+    nit=nit,
+)
 
 # =====================================
 # Apply the Model on an Example
