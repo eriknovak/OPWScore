@@ -46,7 +46,7 @@ if datasets == None or "sts" in datasets:
     # TODO: implement the evaluation
     print("STS Benchmarks dataset: Start evaluation")
     evaluation = evaluate_model("sts", "scores.json")
-    save_scores_to_file(REL_PATH, "scores.sts.json", evaluation)
+    save_scores_to_file(REL_PATH, "eval.sts.json", evaluation)
 
 
 if datasets == None or "wmt18" in datasets:
@@ -69,4 +69,4 @@ if datasets == None or "wmt18" in datasets:
     ]
     for lang_pair in language_pairs:
         evaluation = evaluate_model("wmt18", f"scores.{lang_pair}.json")
-        save_scores_to_file(REL_PATH, f"scores.wmt18.{lang_pair}.json", evaluation)
+        save_scores_to_file(REL_PATH, f"eval.wmt18.{lang_pair}.json", evaluation)
