@@ -1,7 +1,7 @@
 model_params:
-  model: "sentence-transformers/distiluse-base-multilingual-cased-v2"
-  tokenizer: "sentence-transformers/distiluse-base-multilingual-cased-v2"
-  dist_type: "seq"
+  model: sentence-transformers/distiluse-base-multilingual-cased-v2
+  tokenizer: sentence-transformers/distiluse-base-multilingual-cased-v2
+  dist_type: seq
   reg1: 0.2
   reg2: 0.2
   nit: 100

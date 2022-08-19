@@ -91,18 +91,15 @@ dvc exp run
 This command will read the `dvc.yaml` file and execute the stages accordingly, taking
 any dependencies into consideration.
 
-To run multiple experiments we execute the following command:
+To run an experiment with changed parameters, run one of the following lines:
 
 ```bash
-# prepare the queue of experiments
-dvc exp run --queue -S model_params.dist_type=seq  -S model_params.reg1=0.2  -S model_params.reg2=0.2  -S model_params.nit=100
-dvc exp run --queue -S model_params.dist_type=emd  -S model_params.reg1=0.2  -S model_params.reg2=None -S model_params.nit=100
-dvc exp run --queue -S model_params.dist_type=cls  -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
-dvc exp run --queue -S model_params.dist_type=max  -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
-dvc exp run --queue -S model_params.dist_type=mean -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
-
-# execute all queued experiments (run 3 jobs in parallel)
-dvc exp run --run-all --jobs 3
+# Run the corresponding line of code to run an experiment with
+dvc exp run -S model_params.dist_type=seq  -S model_params.reg1=0.2  -S model_params.reg2=0.2  -S model_params.nit=100
+dvc exp run -S model_params.dist_type=emd  -S model_params.reg1=0.2  -S model_params.reg2=None -S model_params.nit=100
+dvc exp run -S model_params.dist_type=cls  -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
+dvc exp run -S model_params.dist_type=max  -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
+dvc exp run -S model_params.dist_type=mean -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
 ```
 
 Afterwards, we can compare the performance of the models by running:
