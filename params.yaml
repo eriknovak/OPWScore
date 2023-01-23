@@ -1,7 +1,7 @@
-model_params:
-  model: sentence-transformers/distiluse-base-multilingual-cased-v2
-  tokenizer: sentence-transformers/distiluse-base-multilingual-cased-v2
-  dist_type: emd
-  reg1: 0.2
-  reg2: None
+model:
+  distance: emd
+  weight_dist: idf
+  temporal_type: TCOT
+  reg1: 0.01
+  reg2: 0.1
   nit: 100

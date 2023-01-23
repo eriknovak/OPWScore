@@ -1,12 +1,10 @@
 # model packages
+import os
 import torch
-import torch.nn as nn
-import torch.optim as optim
 import pytorch_lightning as pl
-from transformers import AutoModel, AutoTokenizer, logging
+from transformers import AutoModel, AutoTokenizer
 
 # visualization packages
-import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -20,98 +18,175 @@ from src.utils.distances import (
     get_cls_dist,
     get_max_dist,
     get_mean_dist,
+    get_model,
 )
+from src.utils.weight_store import WeightStore
+
+# ===================================================================
+# Predefined Weight Stores Paths
+# ===================================================================
+
+WEIGHT_STORES_PATH = os.path.join("results", "weight_stores")
+
+# ===================================================================
+# Model Definitions
+# ===================================================================
+
+# enable NaN detection in PyTorch
+torch.autograd.set_detect_anomaly(True)
 
 
 class Seq_LM_EMD(pl.LightningModule):
     def __init__(
         self,
-        model: str,
-        tokenizer: str,
-        dist_type: str = "emd",
+        distance: str = "emd",
+        weight_dist: str = "uniform",
+        temporal_type: str = "TCOT",
+        lang: str = "en",
         reg1: float = 0.1,
         reg2: float = 0.1,
         nit: int = 100,
-        lr: float = 1e-5,
-        eps: float = 1e-5,
-        wd: float = 1e-2,
     ):
         super().__init__()
 
-        if dist_type not in ["seq", "emd", "cls", "max", "mean"]:
-            raise Exception(f"Unsupported distance type: {dist_type}")
+        if distance not in ["seq", "emd", "cls", "max", "mean"]:
+            raise Exception(f"Unsupported distance type: {distance}")
+
+        if lang not in ["en", "cs", "de", "fi", "ru", "tr", "et", "zh"]:
+            raise Exception(f"Unsupported language type: {lang}")
+
+        if distance == "seq" and temporal_type not in ["TCOT", "OPW"]:
+            raise Exception(f"Unsupported temporal type: {temporal_type}")
 
         # save the model hyperparameters
         self.save_hyperparameters(
-            "model", "tokenizer", "dist_type", "reg1", "reg2", "nit", "lr", "eps", "wd"
+            "model",
+            "tokenizer",
+            "num_layers",
+            "distance",
+            "weight_dist",
+            "temporal_type",
+            "lang",
+            "reg1",
+            "reg2",
+            "nit",
         )
-        self.model = AutoModel.from_pretrained(model)
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
+        if lang == "en":
+            # taken from the BERTScore paper
+            model = "roberta-large-mnli"
+            tokenizer = "roberta-large-mnli"
+            num_layers = 19
+        else:
+            # taken from the BERTScore paper
+            model = "bert-base-multilingual-cased"
+            tokenizer = "bert-base-multilingual-cased"
+            num_layers = 9
 
-    def forward(self, system: str or List[str], references: List[str]):
+        self.model = get_model(model, num_layers)
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
+        self.ws = (
+            None
+            if weight_dist != "idf"
+            else WeightStore.load(
+                os.path.join(
+                    WEIGHT_STORES_PATH,
+                    f"weight_store.{lang}.wmt17.{tokenizer.replace('/', '_')}.pickle",
+                )
+            )
+        )
+
+    def forward(
+        self, predictions: str or List[str], references: List[str], all_layers=False
+    ):
         """Calculate the distance between the system and references
         Args:
-            system (str or List[str]): The system generated text.
+            predictions (str or List[str]): The system generated text.
             references (List[str]): The list of reference texts.
         Returns:
             (distances, cost_matrix, transport_matrix): Returns the distances,
                 cost matrix and transport matrix, all in the form of a torch.Tensor.
         """
         sys_inputs = self.tokenizer(
-            system, padding=True, truncation=True, return_tensors="pt"
+            predictions,
+            padding=True,
+            truncation=True,
+            return_tensors="pt",
+            add_special_tokens=True,
         )
         ref_inputs = self.tokenizer(
-            references, padding=True, truncation=True, return_tensors="pt"
+            references,
+            padding=True,
+            truncation=True,
+            return_tensors="pt",
+            add_special_tokens=True,
         )
         # get the embeddings of the services
-        sys_embed = self.model(**sys_inputs)["last_hidden_state"]
-        ref_embed = self.model(**ref_inputs)["last_hidden_state"]
-
+        sys_embed = self.model(**sys_inputs, output_hidden_states=all_layers)[
+            "last_hidden_state"
+        ]
+        ref_embed = self.model(**ref_inputs, output_hidden_states=all_layers)[
+            "last_hidden_state"
+        ]
+        sys_input_ids = sys_inputs["input_ids"]
+        ref_input_ids = ref_inputs["input_ids"]
         sys_attns = sys_inputs["attention_mask"]
         ref_attns = ref_inputs["attention_mask"]
 
-        if type(system) is not list:
+        if type(predictions) is not list:
             # duplicate the sys_embeds and sys_attns to match ref_embed batch size
             sys_embed = sys_embed.repeat(ref_embed.shape[0], 1, 1)
-            sys_attns = sys_inputs["attention_mask"].repeat(ref_embed.shape[0], 1)
+            sys_attns = sys_attns.repeat(ref_embed.shape[0], 1)
+            sys_input_ids = sys_input_ids.repeat(ref_embed.shape[0], 1)
 
         # TODO: remove special tokens ([CLS], [SEP], <s>, </s>) from tensors
 
-        if self.hparams.dist_type == "seq":
+        if self.hparams.distance == "seq":
             return get_seq_wasserstein_dist(
+                self.hparams.weight_dist,
+                self.ws,
                 sys_embed,
                 ref_embed,
+                sys_input_ids,
+                ref_input_ids,
                 sys_attns,
                 ref_attns,
                 self.hparams.reg1,
                 self.hparams.reg2,
                 self.hparams.nit,
+                self.hparams.temporal_type,
             )
 
-        elif self.hparams.dist_type == "emd":
+        elif self.hparams.distance == "emd":
             return get_wasserstein_dist(
+                self.hparams.weight_dist,
+                self.ws,
                 sys_embed,
                 ref_embed,
+                sys_input_ids,
+                ref_input_ids,
                 sys_attns,
                 ref_attns,
                 self.hparams.reg1,
                 self.hparams.nit,
             )
-        elif self.hparams.dist_type == "cls":
+        elif self.hparams.distance == "cls":
             return get_cls_dist(sys_embed, ref_embed, sys_attns, ref_attns)
-        elif self.hparams.dist_type == "max":
+        elif self.hparams.distance == "max":
             return get_max_dist(sys_embed, ref_embed, sys_attns, ref_attns)
-        elif self.hparams.dist_type == "mean":
+        elif self.hparams.distance == "mean":
             return get_mean_dist(sys_embed, ref_embed, sys_attns, ref_attns)
         else:
             raise Exception(f"Unsupported distance type: {self.hparams.dist_type}")
 
     def visualize(
-        self, system: str or List[str], references: List[str], image_path: str = None
+        self,
+        predictions: str or List[str],
+        references: List[str],
+        image_path: str = None,
     ):
         """Visualize the distances between the system and references
         Args:
-            system (str): The system generated text.
+            predictions (str): The system generated text.
             references (List[str]): The list of reference texts.
             image_path (str): The path to where the image is stored (optional).
         Returns:
@@ -119,21 +194,21 @@ class Seq_LM_EMD(pl.LightningModule):
         """
 
         # check if visualization is supported
-        if self.hparams.dist_type not in ["seq", "emd"]:
+        if self.hparams.distance not in ["seq", "emd"]:
             raise Exception(
                 f"Unable to visualize for distance type: {self.hparams.dist_type}"
             )
 
         # get the input ids of the system and references
         sys_inputs = self.tokenizer(
-            system, padding=True, truncation=True, return_tensors="pt"
+            predictions, padding=True, truncation=True, return_tensors="pt"
         )["input_ids"]
         ref_inputs = self.tokenizer(
             references, padding=True, truncation=True, return_tensors="pt"
         )["input_ids"]
 
         # get the distances, cost matrix and transportation matrix
-        distances, Cm, Tm = self.forward(system, references)
+        distances, Cm, Tm = self.forward(predictions, references)
 
         # convert to numpy
         Cm_np = Cm.detach().numpy()
@@ -173,7 +248,7 @@ class Seq_LM_EMD(pl.LightningModule):
 
             # system and document tokens
             sys_tokens = self.tokenizer.convert_ids_to_tokens(
-                sys_inputs[batch_id] if type(system) is list else sys_inputs[0]
+                sys_inputs[batch_id] if type(predictions) is list else sys_inputs[0]
             )
             ref_tokens = self.tokenizer.convert_ids_to_tokens(ref_inputs[batch_id])
 
@@ -204,7 +279,7 @@ class Seq_LM_EMD(pl.LightningModule):
             )
             # the cosine distance matrix
             ax_distance.set_title("distance matrix", fontsize="large")
-            cmim = ax_distance.imshow(Cm_clean, cmap="PuBu", vmin=0)
+            cmim = ax_distance.imshow(Cm_clean, cmap="Blues", vmin=0)
             cbar = fig.colorbar(cmim, ax=ax_distance, shrink=0.9)
             cbar.ax.set_ylabel(
                 "token distances", rotation=-90, va="bottom", fontsize=14

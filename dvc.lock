@@ -11,152 +11,152 @@ stages:
       size: 1393
     params:
       params.yaml:
-        model_params.dist_type: emd
-        model_params.model: sentence-transformers/distiluse-base-multilingual-cased-v2
-        model_params.nit: 100
-        model_params.reg1: 0.2
+        model_params.dist_type: mean
+        model_params.model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+        model_params.nit: None
+        model_params.reg1: None
         model_params.reg2: None
-        model_params.tokenizer: sentence-transformers/distiluse-base-multilingual-cased-v2
+        model_params.tokenizer: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
     outs:
     - path: results/sts/scores.json
-      md5: d077d64995dbf12adaeafcb0f0bdbccf
-      size: 80262
+      md5: 2ae1e079d27ad050711af0b795e2307c
+      size: 80789
     - path: results/wmt18/scores.cs-en.json
-      md5: 572616edeb87594629c41d71142d2ff8
-      size: 756670
+      md5: 8750359dd8f5242d24f43bbde689c366
+      size: 761261
     - path: results/wmt18/scores.de-en.json
-      md5: cf444f0f2f71321b7b002d422321e6ca
-      size: 2512180
+      md5: b82313c0a29658a0396568eb16f1ec88
+      size: 2527979
     - path: results/wmt18/scores.en-cs.json
-      md5: eab1f5930b466c6a1664ccdc8390866a
-      size: 696741
+      md5: 24da61b574af6cc76e8adc2e9f653575
+      size: 702038
     - path: results/wmt18/scores.en-de.json
-      md5: 60bfa342f9704c08f1bafc0493b7bedb
-      size: 1048024
+      md5: 5520698898713719f7d490dddcc2c4e8
+      size: 1055594
     - path: results/wmt18/scores.en-et.json
-      md5: 8a6fad2a9e3abef923768edb77904021
-      size: 1248812
+      md5: d7c12f5909c3c628491c6caf44a2ab84
+      size: 1258647
     - path: results/wmt18/scores.en-fi.json
-      md5: c68863e605d1a68668a97403d050ae05
-      size: 773758
+      md5: e7edf29c550c3413c326908105a47f66
+      size: 779781
     - path: results/wmt18/scores.en-ru.json
-      md5: c0c52fb9e2e0bc5bb10c95d498f15827
-      size: 1553467
+      md5: a1bed293b1d72de25643e9013639e202
+      size: 1565175
     - path: results/wmt18/scores.en-tr.json
-      md5: 86636c76a42dc567e0c8f0d8738486dc
-      size: 304321
+      md5: b2104105f34144d3b4e06d23ab92fbfe
+      size: 306255
     - path: results/wmt18/scores.en-zh.json
-      md5: 717cf9172a7c67275f75bde5ab8a3c28
-      size: 1946685
+      md5: c91c4d70d6726a76b82133aa1a0cab6b
+      size: 1961669
     - path: results/wmt18/scores.et-en.json
-      md5: 29c1825b09ff2c7f5d06a5500dee7ec7
-      size: 1761675
+      md5: a0e068200b716e89cb50fe5684ab5b77
+      size: 1772009
     - path: results/wmt18/scores.fi-en.json
-      md5: c45421050cb6902546eefc6513fb9be2
-      size: 1250639
+      md5: 4e294f1b69e5baed1ba174e366b6c369
+      size: 1258176
     - path: results/wmt18/scores.ru-en.json
-      md5: 789f57c223eff6c17acf1adf7047a1f7
-      size: 1099803
+      md5: 0808f5a22a10ac728cd8d973d52473ff
+      size: 1107027
     - path: results/wmt18/scores.tr-en.json
-      md5: 1ddf7112588b9d4c68c43604ede04e7f
-      size: 1066385
+      md5: 06797699b3345026b0ddd0774db27f7e
+      size: 1072864
     - path: results/wmt18/scores.zh-en.json
-      md5: 463da962afc899b7e7f9cbf2347ff0c2
-      size: 2055815
+      md5: 21ef570589daa3b6fe0db1e0eb7a4925
+      size: 2069148
   evaluate:
     cmd: python src/models/model_eval.py
     deps:
     - path: results/sts/scores.json
-      md5: d077d64995dbf12adaeafcb0f0bdbccf
-      size: 80262
+      md5: 2ae1e079d27ad050711af0b795e2307c
+      size: 80789
     - path: results/wmt18/scores.cs-en.json
-      md5: 572616edeb87594629c41d71142d2ff8
-      size: 756670
+      md5: 8750359dd8f5242d24f43bbde689c366
+      size: 761261
     - path: results/wmt18/scores.de-en.json
-      md5: cf444f0f2f71321b7b002d422321e6ca
-      size: 2512180
+      md5: b82313c0a29658a0396568eb16f1ec88
+      size: 2527979
     - path: results/wmt18/scores.en-cs.json
-      md5: eab1f5930b466c6a1664ccdc8390866a
-      size: 696741
+      md5: 24da61b574af6cc76e8adc2e9f653575
+      size: 702038
     - path: results/wmt18/scores.en-de.json
-      md5: 60bfa342f9704c08f1bafc0493b7bedb
-      size: 1048024
+      md5: 5520698898713719f7d490dddcc2c4e8
+      size: 1055594
     - path: results/wmt18/scores.en-et.json
-      md5: 8a6fad2a9e3abef923768edb77904021
-      size: 1248812
+      md5: d7c12f5909c3c628491c6caf44a2ab84
+      size: 1258647
     - path: results/wmt18/scores.en-fi.json
-      md5: c68863e605d1a68668a97403d050ae05
-      size: 773758
+      md5: e7edf29c550c3413c326908105a47f66
+      size: 779781
     - path: results/wmt18/scores.en-ru.json
-      md5: c0c52fb9e2e0bc5bb10c95d498f15827
-      size: 1553467
+      md5: a1bed293b1d72de25643e9013639e202
+      size: 1565175
     - path: results/wmt18/scores.en-tr.json
-      md5: 86636c76a42dc567e0c8f0d8738486dc
-      size: 304321
+      md5: b2104105f34144d3b4e06d23ab92fbfe
+      size: 306255
     - path: results/wmt18/scores.en-zh.json
-      md5: 717cf9172a7c67275f75bde5ab8a3c28
-      size: 1946685
+      md5: c91c4d70d6726a76b82133aa1a0cab6b
+      size: 1961669
     - path: results/wmt18/scores.et-en.json
-      md5: 29c1825b09ff2c7f5d06a5500dee7ec7
-      size: 1761675
+      md5: a0e068200b716e89cb50fe5684ab5b77
+      size: 1772009
     - path: results/wmt18/scores.fi-en.json
-      md5: c45421050cb6902546eefc6513fb9be2
-      size: 1250639
+      md5: 4e294f1b69e5baed1ba174e366b6c369
+      size: 1258176
     - path: results/wmt18/scores.ru-en.json
-      md5: 789f57c223eff6c17acf1adf7047a1f7
-      size: 1099803
+      md5: 0808f5a22a10ac728cd8d973d52473ff
+      size: 1107027
     - path: results/wmt18/scores.tr-en.json
-      md5: 1ddf7112588b9d4c68c43604ede04e7f
-      size: 1066385
+      md5: 06797699b3345026b0ddd0774db27f7e
+      size: 1072864
     - path: results/wmt18/scores.zh-en.json
-      md5: 463da962afc899b7e7f9cbf2347ff0c2
-      size: 2055815
+      md5: 21ef570589daa3b6fe0db1e0eb7a4925
+      size: 2069148
     - path: src/models/model_eval.py
       md5: 3f838fd1841b762db591ac0e338016a8
       size: 1997
     outs:
     - path: results/eval.sts.json
-      md5: 482e37a095a8ece6dac6c106fde31bfc
+      md5: dede354d91fff08d492605a02b26eb90
       size: 101
     - path: results/eval.wmt18.cs-en.json
-      md5: b73d15f5416ae3fe040a5646592a895b
-      size: 104
-    - path: results/eval.wmt18.de-en.json
-      md5: e84e544a8a367020ae674a7b520cd70c
-      size: 103
-    - path: results/eval.wmt18.en-cs.json
-      md5: e1a410381dc0b9901a9ca361acf5b3d1
-      size: 104
-    - path: results/eval.wmt18.en-de.json
-      md5: d3c8486b5c6691022db948e0cc84a2b2
-      size: 104
-    - path: results/eval.wmt18.en-et.json
-      md5: 9097b82db6e9516f11b8ee6c995c6f69
-      size: 105
-    - path: results/eval.wmt18.en-fi.json
-      md5: 0954d8b9d1f41fd9a0186aef791eded0
-      size: 104
-    - path: results/eval.wmt18.en-ru.json
-      md5: 43f659892d3768992b67d227c369c611
-      size: 103
-    - path: results/eval.wmt18.en-tr.json
-      md5: 8dea97ff8b81e095ee5c929459b934ff
-      size: 104
-    - path: results/eval.wmt18.en-zh.json
-      md5: 00a2a6426907fa97bdb6286efce73ccf
-      size: 103
-    - path: results/eval.wmt18.et-en.json
-      md5: 4ceefd3b87ca7e4857b615d2a46d5b04
-      size: 103
-    - path: results/eval.wmt18.fi-en.json
-      md5: 1e7a3c749f942d83fe3870d4568c4968
+      md5: 05f23436461a4238346d4af6061f2e8b
       size: 101
+    - path: results/eval.wmt18.de-en.json
+      md5: 50f6342ab41a447725e663c767b23bf7
+      size: 104
+    - path: results/eval.wmt18.en-cs.json
+      md5: 4ea534e60b9e66f98e8c046f47f95d2d
+      size: 101
+    - path: results/eval.wmt18.en-de.json
+      md5: 17bb20cd7442ae8b3fd88a7af1be33fe
+      size: 103
+    - path: results/eval.wmt18.en-et.json
+      md5: ed40dce0c698bb1549ed0cf969de430c
+      size: 104
+    - path: results/eval.wmt18.en-fi.json
+      md5: 4c61808a4396d43cc35c5ba048a4b9ae
+      size: 105
+    - path: results/eval.wmt18.en-ru.json
+      md5: de5135d37d206477de306f255d27d328
+      size: 102
+    - path: results/eval.wmt18.en-tr.json
+      md5: d1e10eb9c70d6e05565b48c16cb6447d
+      size: 103
+    - path: results/eval.wmt18.en-zh.json
+      md5: 36b3592a6d82f2dc4ca94061d5509566
+      size: 104
+    - path: results/eval.wmt18.et-en.json
+      md5: bdf9ac9566b4761ee15c416a0057f6aa
+      size: 102
+    - path: results/eval.wmt18.fi-en.json
+      md5: 6c7f81996d37d6e103f07469773a2c01
+      size: 105
     - path: results/eval.wmt18.ru-en.json
-      md5: ffde20735a566c85967da9946ee63ca5
+      md5: 1627a906e37f6e3547a660da4bdb6fe6
       size: 104
     - path: results/eval.wmt18.tr-en.json
-      md5: e76411b9914ef49820e5a387fb02f781
+      md5: c83ea4faede3fc94f68754b60512830d
       size: 104
     - path: results/eval.wmt18.zh-en.json
-      md5: 680a44647de1733d68b066114d8b79d0
-      size: 103
+      md5: 8d9e5c61c3833d83911a6864e1b4a162
+      size: 104

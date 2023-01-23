@@ -1,9 +1,12 @@
 numpy
 pandas
+scipy
 spacy
+nltk
 scikit-learn
 transformers
 datasets
+evaluate
 matplotlib
 seaborn
 plotly
@@ -14,3 +17,8 @@ torch
 pytorch-lightning
 pyyaml
 dvc
+checklist==0.0.11
+rouge_score
+bert_score
+num2words
+unbabel-comet

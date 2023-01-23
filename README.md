@@ -94,12 +94,18 @@ any dependencies into consideration.
 To run an experiment with changed parameters, run one of the following lines:
 
 ```bash
-# Run the corresponding line of code to run an experiment with
+# Run the corresponding line of code to queue the experiment
 dvc exp run -S model_params.dist_type=seq  -S model_params.reg1=0.2  -S model_params.reg2=0.2  -S model_params.nit=100
 dvc exp run -S model_params.dist_type=emd  -S model_params.reg1=0.2  -S model_params.reg2=None -S model_params.nit=100
 dvc exp run -S model_params.dist_type=cls  -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
 dvc exp run -S model_params.dist_type=max  -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
 dvc exp run -S model_params.dist_type=mean -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
+
+# Run all of the queued experiments
+dvc exp run
+
+# Clear the experiments queue and start over
+dvc exp remove --all
 ```
 
 Afterwards, we can compare the performance of the models by running:

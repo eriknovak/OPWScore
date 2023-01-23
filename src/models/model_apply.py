@@ -9,9 +9,9 @@ from src.models.model import Seq_LM_EMD
 
 params = yaml.safe_load(open("params.yaml"))
 
-model_name = params["model_params"]["model"]
-tokenizer_name = params["model_params"]["tokenizer"]
-dist_type = params["model_params"]["dist_type"]
+distance = params["model_params"]["distance"]
+weight_dist = params["model_params"]["weight_dist"]
+temporal_type = params["model_params"]["temporal_type"]
 reg1 = params["model_params"]["reg1"]
 reg2 = params["model_params"]["reg2"]
 nit = params["model_params"]["nit"]
@@ -21,9 +21,10 @@ nit = params["model_params"]["nit"]
 # =====================================
 
 model = Seq_LM_EMD(
-    model=model_name,
-    tokenizer=tokenizer_name,
-    dist_type=dist_type,
+    distance=distance,
+    weight_dist=weight_dist,
+    temporal_type=temporal_type,
+    lang="en",
     reg1=reg1,
     reg2=reg2,
     nit=nit,
@@ -43,5 +44,5 @@ references = [
 ]
 
 
-image_path = "./results/example_explain.png"
+image_path = "results/example_explain.png"
 model.visualize(system_text, references, image_path=image_path)
