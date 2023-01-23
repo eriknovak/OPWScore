@@ -24,10 +24,10 @@ def calculate_scores(model, dataset):
 
     for lang_pair in tqdm(language_pairs, desc="language pairs"):
         # load the datasets
-        dataset = Dataset(lang_pair, batch_size=1)
-        dataloader = dataset.setup().test_dataloader()
+        dataloader = Dataset(lang_pair, batch_size=1).setup().test_dataloader()
         # calculate the scores
         scores = []
+        count = 0
         for data in tqdm(dataloader, desc="datasets"):
             with torch.no_grad():
                 distances, _, _ = model(data["system"], data["reference"])
@@ -41,6 +41,9 @@ def calculate_scores(model, dataset):
                         "raw_score": raw_score.item(),
                     }
                 )
+            count += 1
+            if count > 5:
+                break
         # save the metric scores
         rel_path = os.path.join("results", dataset, "correlations")
         file_path = f"scores.{lang_pair}.json"
@@ -63,8 +66,9 @@ def calculate_fluency(model, dataset):
 
     for lang_pair in tqdm(language_pairs, desc="language pairs"):
         # load the datasets
-        dataset = Dataset(lang_pair, batch_size=1)
-        dataloader = dataset.setup(stage="fluency").fluency_dataloader()
+        dataloader = (
+            Dataset(lang_pair, batch_size=1).setup(stage="fluency").fluency_dataloader()
+        )
         # calculate the scores
         fluency = []
         for data in tqdm(dataloader, desc="datasets"):

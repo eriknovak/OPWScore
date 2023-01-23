@@ -2,6 +2,6 @@ model:
   distance: emd
   weight_dist: idf
   temporal_type: TCOT
-  reg1: 0.01
+  reg1: 0.015
   reg2: 0.1
   nit: 100

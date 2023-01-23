@@ -16,7 +16,7 @@ datasets = sys.argv[1].split(",") if len(sys.argv) == 2 else None
 # =====================================
 
 
-def evaluation(dataset, lang_pair):
+def evaluate(dataset, lang_pair):
     """Evaluates the model's performance"""
 
     # read the test results
@@ -49,7 +49,7 @@ def evaluate_model(dataset):
 
     for lang_pair in Dataset.supported_languages:
         try:
-            evaluation = evaluation(dataset, lang_pair)
+            evaluation = evaluate(dataset, lang_pair)
             save_scores_to_file(
                 os.path.join(REL_PATH, dataset, "correlations", "scores"),
                 f"eval.{dataset}.{lang_pair}.json",

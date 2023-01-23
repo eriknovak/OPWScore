@@ -26,7 +26,7 @@ from src.utils.weight_store import WeightStore
 # Predefined Weight Stores Paths
 # ===================================================================
 
-WEIGHT_STORES_PATH = os.path.join("results", "weight_stores")
+WEIGHT_STORES_PATH = os.path.join("..", "results", "weight_stores")
 
 # ===================================================================
 # Model Definitions
@@ -60,9 +60,6 @@ class Seq_LM_EMD(pl.LightningModule):
 
         # save the model hyperparameters
         self.save_hyperparameters(
-            "model",
-            "tokenizer",
-            "num_layers",
             "distance",
             "weight_dist",
             "temporal_type",

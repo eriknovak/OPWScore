@@ -21,8 +21,7 @@ TT = TranslationTemplates()
 def scramble_refs_wmt18():
     for lang_pair in tqdm(WMT18.supported_languages, desc="language pairs"):
         # load the datasets
-        dataset = WMT18(lang_pair, batch_size=1)
-        dataloader = dataset.setup().test_dataloader()
+        dataloader = WMT18(lang_pair, batch_size=1).setup().test_dataloader()
         # jumble the sentences
         jumbles = []
         for data in tqdm(dataloader, desc="datasets"):

@@ -142,8 +142,7 @@ def calculate_scores(dataset):
     # prepare the targetted language pairs
     for lang_pair in tqdm(Dataset.supported_languages, desc="language pairs"):
         # load the datasets
-        dataset = Dataset(lang_pair, batch_size=32)
-        dataloader = dataset.setup().test_dataloader()
+        dataloader = Dataset(lang_pair, batch_size=32).setup().test_dataloader()
         language = lang_pair.split("-")[1]
         # calculate the scores
         scores = []

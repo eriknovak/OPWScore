@@ -1,6 +1,25 @@
 stages:
   data_prep:
-    cmd: python scripts/
+    cmd: python scripts/models/compute_weights.py en,cs,de,et,fi,ru,tr,zh
+    deps:
+      - scripts/models/compute_weights.py
+    outs:
+      - results/weight_stores/weight_store.en.wmt17.roberta-large-mnli.pickle
+      - results/weight_stores/weight_store.cs.wmt17.roberta-large-mnli.pickle
+      - results/weight_stores/weight_store.de.wmt17.roberta-large-mnli.pickle
+      - results/weight_stores/weight_store.et.wmt17.roberta-large-mnli.pickle
+      - results/weight_stores/weight_store.fi.wmt17.roberta-large-mnli.pickle
+      - results/weight_stores/weight_store.ru.wmt17.roberta-large-mnli.pickle
+      - results/weight_stores/weight_store.tr.wmt17.roberta-large-mnli.pickle
+      - results/weight_stores/weight_store.zh.wmt17.roberta-large-mnli.pickle
+      - results/weight_stores/weight_store.en.wmt17.bert-base-multilingual-cased.pickle
+      - results/weight_stores/weight_store.cs.wmt17.bert-base-multilingual-cased.pickle
+      - results/weight_stores/weight_store.de.wmt17.bert-base-multilingual-cased.pickle
+      - results/weight_stores/weight_store.et.wmt17.bert-base-multilingual-cased.pickle
+      - results/weight_stores/weight_store.fi.wmt17.bert-base-multilingual-cased.pickle
+      - results/weight_stores/weight_store.ru.wmt17.bert-base-multilingual-cased.pickle
+      - results/weight_stores/weight_store.tr.wmt17.bert-base-multilingual-cased.pickle
+      - results/weight_stores/weight_store.zh.wmt17.bert-base-multilingual-cased.pickle
 
   test:
     cmd: python scripts/models/performance_test.py en,cs,de,et,fi,ru,tr,zh wmt18
@@ -8,11 +27,9 @@ stages:
       - src/models/model.py
       - scripts/models/performance_test.py
     params:
-      - model_params.model
-      - model_params.tokenizer
-      - model_params.num_layers
       - model_params.distance
       - model_params.weight_dist
+      - model_params.temporal_type
       - model_params.reg1
       - model_params.reg2
       - model_params.nit

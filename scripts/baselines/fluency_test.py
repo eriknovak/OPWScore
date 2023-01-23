@@ -138,11 +138,11 @@ def calculate_fluency(dataset):
     else:
         raise Exception("Unsupported dataset!")
 
-
     for lang_pair in tqdm(Dataset.supported_languages, desc="language pairs"):
         # load the datasets
-        dataset = Dataset(lang_pair, batch_size=1)
-        dataloader = dataset.setup(stage="fluency").fluency_dataloader()
+        dataloader = (
+            Dataset(lang_pair, batch_size=1).setup(stage="fluency").fluency_dataloader()
+        )
         language = lang_pair.split("-")[1]
         # calculate the scores
         fluency = []
@@ -151,18 +151,18 @@ def calculate_fluency(dataset):
             fluency_scores = {}
             for model in models:
                 reference_refs = model["model"](
-                    predictions=data["original"]["reference"],
-                    references=data["original"]["reference"],
-                    sources=data["original"]["source"],
+                    predictions=data["o_reference"],
+                    references=data["o_reference"],
+                    sources=data["o_source"],
                     lang=language,
                 )
                 reference_tests = [
                     model["model"](
                         predictions=sentence,
-                        references=data["original"]["reference"],
+                        references=data["o_reference"],
                         lang=language,
                     )
-                    for sentence in data["jumble"]["reference"]
+                    for sentence in data["j_reference"]
                 ]
                 fluency_scores[model["id"]] = {
                     "test": reference_tests,
