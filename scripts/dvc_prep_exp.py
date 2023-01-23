@@ -1,7 +1,7 @@
 import subprocess
 
 # Automated grid search experiments
-experitments = [
+experiments = [
     {
         "distance": "emd",
         "weight_dist": "uniform",
@@ -53,7 +53,7 @@ experitments = [
 ]
 
 # Iterate over all combinations of hyperparameter values.
-for exp in experitments:
+for exp in experiments:
     # Execute "dvc exp run --queue --set-param model.reg1=<reg1> --set-param model.reg2=<reg2>".
     subprocess.run(
         [
