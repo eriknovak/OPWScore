@@ -26,6 +26,7 @@ stages:
     deps:
       - src/models/model.py
       - scripts/models/performance_test.py
+      - data/raw/wmt18/2018-da.csv
       - results/weight_stores/weight_store.en.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.cs.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.de.wmt17.roberta-large-mnli.pickle
