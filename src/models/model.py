@@ -2,7 +2,7 @@
 import os
 import torch
 import pytorch_lightning as pl
-from transformers import AutoModel, AutoTokenizer
+from transformers import AutoTokenizer
 
 # visualization packages
 import numpy as np
@@ -26,7 +26,7 @@ from src.utils.weight_store import WeightStore
 # Predefined Weight Stores Paths
 # ===================================================================
 
-WEIGHT_STORES_PATH = os.path.join("..", "results", "weight_stores")
+WEIGHT_STORES_PATH = os.path.join("results", "weight_stores")
 
 # ===================================================================
 # Model Definitions

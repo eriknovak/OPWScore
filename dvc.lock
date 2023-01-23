@@ -1,162 +1,256 @@
 schema: '2.0'
 stages:
   test:
-    cmd: python src/models/model_test.py
+    cmd: python scripts/models/performance_test.py en,cs,de,et,fi,ru,tr,zh wmt18
     deps:
+    - path: results/weight_stores/weight_store.cs.wmt17.bert-base-multilingual-cased.pickle
+      md5: de28f2be923c93c8f4a6bda5107ffc16
+      size: 231663
+    - path: results/weight_stores/weight_store.cs.wmt17.roberta-large-mnli.pickle
+      md5: 8ae9fd1bffbc960085cc2be2c620ae98
+      size: 139698
+    - path: results/weight_stores/weight_store.de.wmt17.bert-base-multilingual-cased.pickle
+      md5: 590755a920545336ce492d2ab30a2450
+      size: 307909
+    - path: results/weight_stores/weight_store.de.wmt17.roberta-large-mnli.pickle
+      md5: 9fbb9231d2a8bd9e0e3824ca9da85d67
+      size: 185669
+    - path: results/weight_stores/weight_store.en.wmt17.bert-base-multilingual-cased.pickle
+      md5: 5fe385307672f0e00cfc37ad940d676c
+      size: 501819
+    - path: results/weight_stores/weight_store.en.wmt17.roberta-large-mnli.pickle
+      md5: 0631df416cdac44b43e0f306fa54e95a
+      size: 661635
+    - path: results/weight_stores/weight_store.et.wmt17.bert-base-multilingual-cased.pickle
+      md5: 6436727076e403436f3287a147c11e6c
+      size: 168
+    - path: results/weight_stores/weight_store.et.wmt17.roberta-large-mnli.pickle
+      md5: 6436727076e403436f3287a147c11e6c
+      size: 168
+    - path: results/weight_stores/weight_store.fi.wmt17.bert-base-multilingual-cased.pickle
+      md5: 054063b16d9ad2925675c21c681c1717
+      size: 220481
+    - path: results/weight_stores/weight_store.fi.wmt17.roberta-large-mnli.pickle
+      md5: 57ff52d08d2d43566c6ba21480b01077
+      size: 135501
+    - path: results/weight_stores/weight_store.ru.wmt17.bert-base-multilingual-cased.pickle
+      md5: f8393ff5e498ff07158978920d6c2701
+      size: 281390
+    - path: results/weight_stores/weight_store.ru.wmt17.roberta-large-mnli.pickle
+      md5: c42e72dee7164f5394a25839f943f7f2
+      size: 30211
+    - path: results/weight_stores/weight_store.tr.wmt17.bert-base-multilingual-cased.pickle
+      md5: 4b1feff650d96ed186f9299867e9a6a7
+      size: 155562
+    - path: results/weight_stores/weight_store.tr.wmt17.roberta-large-mnli.pickle
+      md5: 427ec8fd3b5d233cb20b4cb12b589a9c
+      size: 103643
+    - path: results/weight_stores/weight_store.zh.wmt17.bert-base-multilingual-cased.pickle
+      md5: 5c59bdfdd43f12e024532e40011b8630
+      size: 97301
+    - path: results/weight_stores/weight_store.zh.wmt17.roberta-large-mnli.pickle
+      md5: a227ab5832c20b807bde09da4c1c1363
+      size: 29881
+    - path: scripts/models/performance_test.py
+      md5: 4353a6c9bdb72e0e6b5f077573eb9cc6
+      size: 1518
     - path: src/models/model.py
-      md5: 3b6107a6183dbbfd013afd065847cf39
-      size: 9248
-    - path: src/models/model_test.py
-      md5: df19eda6d6d879269d8fa84013631524
-      size: 1393
+      md5: 10791fbd72e96d721675c5b46c480680
+      size: 11542
     params:
       params.yaml:
-        model_params.dist_type: mean
-        model_params.model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
-        model_params.nit: None
-        model_params.reg1: None
-        model_params.reg2: None
-        model_params.tokenizer: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+        model.distance: emd
+        model.nit: 100
+        model.reg1: 0.015
+        model.reg2: None
+        model.temporal_type: None
+        model.weight_dist: idf
     outs:
-    - path: results/sts/scores.json
-      md5: 2ae1e079d27ad050711af0b795e2307c
-      size: 80789
-    - path: results/wmt18/scores.cs-en.json
-      md5: 8750359dd8f5242d24f43bbde689c366
-      size: 761261
-    - path: results/wmt18/scores.de-en.json
-      md5: b82313c0a29658a0396568eb16f1ec88
-      size: 2527979
-    - path: results/wmt18/scores.en-cs.json
-      md5: 24da61b574af6cc76e8adc2e9f653575
-      size: 702038
-    - path: results/wmt18/scores.en-de.json
-      md5: 5520698898713719f7d490dddcc2c4e8
-      size: 1055594
-    - path: results/wmt18/scores.en-et.json
-      md5: d7c12f5909c3c628491c6caf44a2ab84
-      size: 1258647
-    - path: results/wmt18/scores.en-fi.json
-      md5: e7edf29c550c3413c326908105a47f66
-      size: 779781
-    - path: results/wmt18/scores.en-ru.json
-      md5: a1bed293b1d72de25643e9013639e202
-      size: 1565175
-    - path: results/wmt18/scores.en-tr.json
-      md5: b2104105f34144d3b4e06d23ab92fbfe
-      size: 306255
-    - path: results/wmt18/scores.en-zh.json
-      md5: c91c4d70d6726a76b82133aa1a0cab6b
-      size: 1961669
-    - path: results/wmt18/scores.et-en.json
-      md5: a0e068200b716e89cb50fe5684ab5b77
-      size: 1772009
-    - path: results/wmt18/scores.fi-en.json
-      md5: 4e294f1b69e5baed1ba174e366b6c369
-      size: 1258176
-    - path: results/wmt18/scores.ru-en.json
-      md5: 0808f5a22a10ac728cd8d973d52473ff
-      size: 1107027
-    - path: results/wmt18/scores.tr-en.json
-      md5: 06797699b3345026b0ddd0774db27f7e
-      size: 1072864
-    - path: results/wmt18/scores.zh-en.json
-      md5: 21ef570589daa3b6fe0db1e0eb7a4925
-      size: 2069148
+    - path: results/wmt18/correlations/scores.cs-en.json
+      md5: 4c38fbf6ce1ac02e921738b4683fa5c1
+      size: 518
+    - path: results/wmt18/correlations/scores.de-en.json
+      md5: e4100ef9960b9e846c3f12e01dbf4b7b
+      size: 549
+    - path: results/wmt18/correlations/scores.en-cs.json
+      md5: ba8c9324bb77a10ffc9c851ca2a8bda4
+      size: 511
+    - path: results/wmt18/correlations/scores.en-de.json
+      md5: 787867a2a15377350c1bea7c88916cf4
+      size: 531
+    - path: results/wmt18/correlations/scores.en-et.json
+      md5: 224b76c67317b3f39d12e256d9bbb7a1
+      size: 544
+    - path: results/wmt18/correlations/scores.en-fi.json
+      md5: b0fd1677f902e6ce100b2dd2cc9bf0a8
+      size: 517
+    - path: results/wmt18/correlations/scores.en-ru.json
+      md5: c7a9173c8de18984fe24d5cef2d8eb41
+      size: 541
+    - path: results/wmt18/correlations/scores.en-tr.json
+      md5: 7e5d7239119b5073d2b448c8a56d40e3
+      size: 516
+    - path: results/wmt18/correlations/scores.en-zh.json
+      md5: abc5335b5c53601d740208f59da64aa9
+      size: 511
+    - path: results/wmt18/correlations/scores.et-en.json
+      md5: a7d3a8a9d5ac6f9d86edfb4287b73f43
+      size: 516
+    - path: results/wmt18/correlations/scores.fi-en.json
+      md5: df4f19373a312ff6c627793df49eff63
+      size: 529
+    - path: results/wmt18/correlations/scores.ru-en.json
+      md5: e8cc16b0bb54aa41663d29a35e8b92eb
+      size: 543
+    - path: results/wmt18/correlations/scores.tr-en.json
+      md5: 88d19c21dc2e1937736b5824590ba299
+      size: 517
+    - path: results/wmt18/correlations/scores.zh-en.json
+      md5: b0d6b0022972d8147132f65a24aa3320
+      size: 543
   evaluate:
-    cmd: python src/models/model_eval.py
+    cmd: python scripts/models/performance_eval.py wmt18
     deps:
-    - path: results/sts/scores.json
-      md5: 2ae1e079d27ad050711af0b795e2307c
-      size: 80789
-    - path: results/wmt18/scores.cs-en.json
-      md5: 8750359dd8f5242d24f43bbde689c366
-      size: 761261
-    - path: results/wmt18/scores.de-en.json
-      md5: b82313c0a29658a0396568eb16f1ec88
-      size: 2527979
-    - path: results/wmt18/scores.en-cs.json
-      md5: 24da61b574af6cc76e8adc2e9f653575
-      size: 702038
-    - path: results/wmt18/scores.en-de.json
-      md5: 5520698898713719f7d490dddcc2c4e8
-      size: 1055594
-    - path: results/wmt18/scores.en-et.json
-      md5: d7c12f5909c3c628491c6caf44a2ab84
-      size: 1258647
-    - path: results/wmt18/scores.en-fi.json
-      md5: e7edf29c550c3413c326908105a47f66
-      size: 779781
-    - path: results/wmt18/scores.en-ru.json
-      md5: a1bed293b1d72de25643e9013639e202
-      size: 1565175
-    - path: results/wmt18/scores.en-tr.json
-      md5: b2104105f34144d3b4e06d23ab92fbfe
-      size: 306255
-    - path: results/wmt18/scores.en-zh.json
-      md5: c91c4d70d6726a76b82133aa1a0cab6b
-      size: 1961669
-    - path: results/wmt18/scores.et-en.json
-      md5: a0e068200b716e89cb50fe5684ab5b77
-      size: 1772009
-    - path: results/wmt18/scores.fi-en.json
-      md5: 4e294f1b69e5baed1ba174e366b6c369
-      size: 1258176
-    - path: results/wmt18/scores.ru-en.json
-      md5: 0808f5a22a10ac728cd8d973d52473ff
-      size: 1107027
-    - path: results/wmt18/scores.tr-en.json
-      md5: 06797699b3345026b0ddd0774db27f7e
-      size: 1072864
-    - path: results/wmt18/scores.zh-en.json
-      md5: 21ef570589daa3b6fe0db1e0eb7a4925
-      size: 2069148
-    - path: src/models/model_eval.py
-      md5: 3f838fd1841b762db591ac0e338016a8
-      size: 1997
+    - path: results/wmt18/correlations/scores.cs-en.json
+      md5: 4c38fbf6ce1ac02e921738b4683fa5c1
+      size: 518
+    - path: results/wmt18/correlations/scores.de-en.json
+      md5: e4100ef9960b9e846c3f12e01dbf4b7b
+      size: 549
+    - path: results/wmt18/correlations/scores.en-cs.json
+      md5: ba8c9324bb77a10ffc9c851ca2a8bda4
+      size: 511
+    - path: results/wmt18/correlations/scores.en-de.json
+      md5: 787867a2a15377350c1bea7c88916cf4
+      size: 531
+    - path: results/wmt18/correlations/scores.en-et.json
+      md5: 224b76c67317b3f39d12e256d9bbb7a1
+      size: 544
+    - path: results/wmt18/correlations/scores.en-fi.json
+      md5: b0fd1677f902e6ce100b2dd2cc9bf0a8
+      size: 517
+    - path: results/wmt18/correlations/scores.en-ru.json
+      md5: c7a9173c8de18984fe24d5cef2d8eb41
+      size: 541
+    - path: results/wmt18/correlations/scores.en-tr.json
+      md5: 7e5d7239119b5073d2b448c8a56d40e3
+      size: 516
+    - path: results/wmt18/correlations/scores.en-zh.json
+      md5: abc5335b5c53601d740208f59da64aa9
+      size: 511
+    - path: results/wmt18/correlations/scores.et-en.json
+      md5: a7d3a8a9d5ac6f9d86edfb4287b73f43
+      size: 516
+    - path: results/wmt18/correlations/scores.fi-en.json
+      md5: df4f19373a312ff6c627793df49eff63
+      size: 529
+    - path: results/wmt18/correlations/scores.ru-en.json
+      md5: e8cc16b0bb54aa41663d29a35e8b92eb
+      size: 543
+    - path: results/wmt18/correlations/scores.tr-en.json
+      md5: 88d19c21dc2e1937736b5824590ba299
+      size: 517
+    - path: results/wmt18/correlations/scores.zh-en.json
+      md5: b0d6b0022972d8147132f65a24aa3320
+      size: 543
+    - path: scripts/models/performance_eval.py
+      md5: 59fd09c59ccbd45f22b77bdfcfd548ce
+      size: 2094
     outs:
-    - path: results/eval.sts.json
-      md5: dede354d91fff08d492605a02b26eb90
-      size: 101
-    - path: results/eval.wmt18.cs-en.json
-      md5: 05f23436461a4238346d4af6061f2e8b
-      size: 101
-    - path: results/eval.wmt18.de-en.json
-      md5: 50f6342ab41a447725e663c767b23bf7
-      size: 104
-    - path: results/eval.wmt18.en-cs.json
-      md5: 4ea534e60b9e66f98e8c046f47f95d2d
-      size: 101
-    - path: results/eval.wmt18.en-de.json
-      md5: 17bb20cd7442ae8b3fd88a7af1be33fe
+    - path: results/wmt18/correlations/scores/eval.wmt18.cs-en.json
+      md5: baa09676b0e1bbee33483c35037f3340
       size: 103
-    - path: results/eval.wmt18.en-et.json
-      md5: ed40dce0c698bb1549ed0cf969de430c
-      size: 104
-    - path: results/eval.wmt18.en-fi.json
-      md5: 4c61808a4396d43cc35c5ba048a4b9ae
-      size: 105
-    - path: results/eval.wmt18.en-ru.json
-      md5: de5135d37d206477de306f255d27d328
+    - path: results/wmt18/correlations/scores/eval.wmt18.de-en.json
+      md5: 549a769a6732bef26fbdb0b56d174fbe
       size: 102
-    - path: results/eval.wmt18.en-tr.json
-      md5: d1e10eb9c70d6e05565b48c16cb6447d
-      size: 103
-    - path: results/eval.wmt18.en-zh.json
-      md5: 36b3592a6d82f2dc4ca94061d5509566
-      size: 104
-    - path: results/eval.wmt18.et-en.json
-      md5: bdf9ac9566b4761ee15c416a0057f6aa
-      size: 102
-    - path: results/eval.wmt18.fi-en.json
-      md5: 6c7f81996d37d6e103f07469773a2c01
+    - path: results/wmt18/correlations/scores/eval.wmt18.en-cs.json
+      md5: ab61170ffbe8180af29a2359c172975a
       size: 105
-    - path: results/eval.wmt18.ru-en.json
-      md5: 1627a906e37f6e3547a660da4bdb6fe6
-      size: 104
-    - path: results/eval.wmt18.tr-en.json
-      md5: c83ea4faede3fc94f68754b60512830d
-      size: 104
-    - path: results/eval.wmt18.zh-en.json
-      md5: 8d9e5c61c3833d83911a6864e1b4a162
-      size: 104
+    - path: results/wmt18/correlations/scores/eval.wmt18.en-de.json
+      md5: 54770c09fdf2ea01a98bbb50e7a08a18
+      size: 105
+    - path: results/wmt18/correlations/scores/eval.wmt18.en-et.json
+      md5: 99d983606f700a6b0ff0aec826efa903
+      size: 101
+    - path: results/wmt18/correlations/scores/eval.wmt18.en-fi.json
+      md5: 84afbdb7b9fb1a90ead811580372a03e
+      size: 87
+    - path: results/wmt18/correlations/scores/eval.wmt18.en-ru.json
+      md5: 819717e3051e6ac4b63a525ad0512460
+      size: 105
+    - path: results/wmt18/correlations/scores/eval.wmt18.en-tr.json
+      md5: f77f3338d8fe599e4202ac97e8579ad4
+      size: 88
+    - path: results/wmt18/correlations/scores/eval.wmt18.en-zh.json
+      md5: 2448b20a698e1e20e5a8f6aed792c84a
+      size: 105
+    - path: results/wmt18/correlations/scores/eval.wmt18.et-en.json
+      md5: 34df17084cda5aeedef54a6bb5b42dad
+      size: 102
+    - path: results/wmt18/correlations/scores/eval.wmt18.fi-en.json
+      md5: ef9c05fbbc247a87dba509b540ae80a5
+      size: 102
+    - path: results/wmt18/correlations/scores/eval.wmt18.ru-en.json
+      md5: 65b37786d1c402f26a800f41857aa2cd
+      size: 102
+    - path: results/wmt18/correlations/scores/eval.wmt18.tr-en.json
+      md5: 8e28039f247bd0f498ceff030ea39501
+      size: 86
+    - path: results/wmt18/correlations/scores/eval.wmt18.zh-en.json
+      md5: eb01fc0e86e40b57f55413b39f4f4b9f
+      size: 101
+  data_prep:
+    cmd: python scripts/models/compute_weights.py en,cs,de,et,fi,ru,tr,zh
+    deps:
+    - path: scripts/models/compute_weights.py
+      md5: d9154ddad9c15a57404204881f44013f
+      size: 1924
+    outs:
+    - path: results/weight_stores/weight_store.cs.wmt17.bert-base-multilingual-cased.pickle
+      md5: de28f2be923c93c8f4a6bda5107ffc16
+      size: 231663
+    - path: results/weight_stores/weight_store.cs.wmt17.roberta-large-mnli.pickle
+      md5: 8ae9fd1bffbc960085cc2be2c620ae98
+      size: 139698
+    - path: results/weight_stores/weight_store.de.wmt17.bert-base-multilingual-cased.pickle
+      md5: 590755a920545336ce492d2ab30a2450
+      size: 307909
+    - path: results/weight_stores/weight_store.de.wmt17.roberta-large-mnli.pickle
+      md5: 9fbb9231d2a8bd9e0e3824ca9da85d67
+      size: 185669
+    - path: results/weight_stores/weight_store.en.wmt17.bert-base-multilingual-cased.pickle
+      md5: 5fe385307672f0e00cfc37ad940d676c
+      size: 501819
+    - path: results/weight_stores/weight_store.en.wmt17.roberta-large-mnli.pickle
+      md5: 0631df416cdac44b43e0f306fa54e95a
+      size: 661635
+    - path: results/weight_stores/weight_store.et.wmt17.bert-base-multilingual-cased.pickle
+      md5: 6436727076e403436f3287a147c11e6c
+      size: 168
+    - path: results/weight_stores/weight_store.et.wmt17.roberta-large-mnli.pickle
+      md5: 6436727076e403436f3287a147c11e6c
+      size: 168
+    - path: results/weight_stores/weight_store.fi.wmt17.bert-base-multilingual-cased.pickle
+      md5: 054063b16d9ad2925675c21c681c1717
+      size: 220481
+    - path: results/weight_stores/weight_store.fi.wmt17.roberta-large-mnli.pickle
+      md5: 57ff52d08d2d43566c6ba21480b01077
+      size: 135501
+    - path: results/weight_stores/weight_store.ru.wmt17.bert-base-multilingual-cased.pickle
+      md5: f8393ff5e498ff07158978920d6c2701
+      size: 281390
+    - path: results/weight_stores/weight_store.ru.wmt17.roberta-large-mnli.pickle
+      md5: c42e72dee7164f5394a25839f943f7f2
+      size: 30211
+    - path: results/weight_stores/weight_store.tr.wmt17.bert-base-multilingual-cased.pickle
+      md5: 4b1feff650d96ed186f9299867e9a6a7
+      size: 155562
+    - path: results/weight_stores/weight_store.tr.wmt17.roberta-large-mnli.pickle
+      md5: 427ec8fd3b5d233cb20b4cb12b589a9c
+      size: 103643
+    - path: results/weight_stores/weight_store.zh.wmt17.bert-base-multilingual-cased.pickle
+      md5: 5c59bdfdd43f12e024532e40011b8630
+      size: 97301
+    - path: results/weight_stores/weight_store.zh.wmt17.roberta-large-mnli.pickle
+      md5: a227ab5832c20b807bde09da4c1c1363
+      size: 29881

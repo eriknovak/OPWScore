@@ -27,7 +27,6 @@ def calculate_scores(model, dataset):
         dataloader = Dataset(lang_pair, batch_size=1).setup().test_dataloader()
         # calculate the scores
         scores = []
-        count = 0
         for data in tqdm(dataloader, desc="datasets"):
             with torch.no_grad():
                 distances, _, _ = model(data["system"], data["reference"])
@@ -41,9 +40,6 @@ def calculate_scores(model, dataset):
                         "raw_score": raw_score.item(),
                     }
                 )
-            count += 1
-            if count > 5:
-                break
         # save the metric scores
         rel_path = os.path.join("results", dataset, "correlations")
         file_path = f"scores.{lang_pair}.json"
