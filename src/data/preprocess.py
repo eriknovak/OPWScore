@@ -30,14 +30,12 @@ def calculate_scores(model, dataset):
         for data in tqdm(dataloader, desc="datasets"):
             with torch.no_grad():
                 distances, _, _ = model(data["system"], data["reference"])
-            for dist, score, raw_score in zip(
-                distances, data["score"], data["raw_score"]
-            ):
+            for dist, score, z_score in zip(distances, data["score"], data["z_score"]):
                 scores.append(
                     {
                         "system_score": dist.item(),
                         "score": score.item(),
-                        "raw_score": raw_score.item(),
+                        "z_score": z_score.item(),
                     }
                 )
         # save the metric scores

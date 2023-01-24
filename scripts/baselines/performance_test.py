@@ -163,7 +163,7 @@ def calculate_scores(dataset):
                     {
                         **system_score,
                         "score": data["score"][idx].item(),
-                        "raw_score": data["raw_score"][idx].item(),
+                        "z_score": data["z_score"][idx].item(),
                     }
                 )
         # save the metric scores

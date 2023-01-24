@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas
 import pytorch_lightning as pl
 from torch.utils.data import Dataset, DataLoader
@@ -36,9 +37,9 @@ def get_dataset(dataset, language):
         {
             "source": record["src"],
             "reference": record["ref"],
-            "system": record["mt"],
+            "system": record["mt"] if record["mt"] is not np.nan else "",
             "score": record["score"],
-            "raw_score": record["raw_score"],
+            "z_score": record["z_score"],
         }
         for record in df.to_dict("records")
     ]

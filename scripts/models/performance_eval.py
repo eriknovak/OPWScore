@@ -1,5 +1,6 @@
 import os
 import sys
+import numpy as np
 from src.utils.fs import read_json_file, save_scores_to_file
 from src.utils.metrics import get_pearson_r, get_spearman_r, get_kendall_tau
 from src.data.Datasets import WMT18, WMT20
@@ -24,8 +25,13 @@ def evaluate(dataset, lang_pair):
         os.path.join(REL_PATH, dataset, "correlations"), f"scores.{lang_pair}.json"
     )
     # get all system and human scores
-    x = [k["system_score"] for k in results]
-    y = [k["score"] for k in results]
+    data = [
+        {"x": k["system_score"], "y": k["score"]}
+        for k in results
+        if not np.isnan(k["system_score"])
+    ]
+    x = [k["x"] for k in data]
+    y = [k["y"] for k in data]
 
     # calculate the correlations
     pearson_r = get_pearson_r(x, y)[0]

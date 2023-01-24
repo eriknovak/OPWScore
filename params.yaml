@@ -1,7 +1,7 @@
 model:
-  distance: emd
-  weight_dist: idf
-  temporal_type: None
-  reg1: 0.015
+  distance: seq
+  weight_dist: uniform
+  temporal_type: TCOT
+  reg1: 0.01
   reg2: None
   nit: 100
