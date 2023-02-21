@@ -1,13 +1,12 @@
 stages:
   data_prep:
-    cmd: python scripts/models/compute_weights.py en,cs,de,et,fi,ru,tr,zh
+    cmd: python scripts/models/compute_weights.py en,cs,de,fi,ru,tr,zh
     deps:
       - scripts/models/compute_weights.py
     outs:
       - results/weight_stores/weight_store.en.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.cs.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.de.wmt17.roberta-large-mnli.pickle
-      - results/weight_stores/weight_store.et.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.fi.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.ru.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.tr.wmt17.roberta-large-mnli.pickle
@@ -15,14 +14,13 @@ stages:
       - results/weight_stores/weight_store.en.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.cs.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.de.wmt17.bert-base-multilingual-cased.pickle
-      - results/weight_stores/weight_store.et.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.fi.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.ru.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.tr.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.zh.wmt17.bert-base-multilingual-cased.pickle
 
   test:
-    cmd: python scripts/models/performance_test.py en,cs,de,et,fi,ru,tr,zh wmt18
+    cmd: python scripts/models/performance_test.py en,cs,de,fi,ru,tr,zh wmt18
     deps:
       - src/models/model.py
       - scripts/models/performance_test.py
@@ -30,7 +28,6 @@ stages:
       - results/weight_stores/weight_store.en.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.cs.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.de.wmt17.roberta-large-mnli.pickle
-      - results/weight_stores/weight_store.et.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.fi.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.ru.wmt17.roberta-large-mnli.pickle
       - results/weight_stores/weight_store.tr.wmt17.roberta-large-mnli.pickle
@@ -38,7 +35,6 @@ stages:
       - results/weight_stores/weight_store.en.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.cs.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.de.wmt17.bert-base-multilingual-cased.pickle
-      - results/weight_stores/weight_store.et.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.fi.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.ru.wmt17.bert-base-multilingual-cased.pickle
       - results/weight_stores/weight_store.tr.wmt17.bert-base-multilingual-cased.pickle
@@ -53,14 +49,12 @@ stages:
     outs:
       - results/wmt18/correlations/scores.cs-en.json
       - results/wmt18/correlations/scores.de-en.json
-      - results/wmt18/correlations/scores.et-en.json
       - results/wmt18/correlations/scores.fi-en.json
       - results/wmt18/correlations/scores.ru-en.json
       - results/wmt18/correlations/scores.tr-en.json
       - results/wmt18/correlations/scores.zh-en.json
       - results/wmt18/correlations/scores.en-cs.json
       - results/wmt18/correlations/scores.en-de.json
-      - results/wmt18/correlations/scores.en-et.json
       - results/wmt18/correlations/scores.en-fi.json
       - results/wmt18/correlations/scores.en-ru.json
       - results/wmt18/correlations/scores.en-tr.json
@@ -72,14 +66,12 @@ stages:
       - scripts/models/performance_eval.py
       - results/wmt18/correlations/scores.cs-en.json
       - results/wmt18/correlations/scores.de-en.json
-      - results/wmt18/correlations/scores.et-en.json
       - results/wmt18/correlations/scores.fi-en.json
       - results/wmt18/correlations/scores.ru-en.json
       - results/wmt18/correlations/scores.tr-en.json
       - results/wmt18/correlations/scores.zh-en.json
       - results/wmt18/correlations/scores.en-cs.json
       - results/wmt18/correlations/scores.en-de.json
-      - results/wmt18/correlations/scores.en-et.json
       - results/wmt18/correlations/scores.en-fi.json
       - results/wmt18/correlations/scores.en-ru.json
       - results/wmt18/correlations/scores.en-tr.json
@@ -88,8 +80,6 @@ stages:
       - results/wmt18/correlations/scores/eval.wmt18.cs-en.json:
           cache: false
       - results/wmt18/correlations/scores/eval.wmt18.de-en.json:
-          cache: false
-      - results/wmt18/correlations/scores/eval.wmt18.et-en.json:
           cache: false
       - results/wmt18/correlations/scores/eval.wmt18.fi-en.json:
           cache: false
@@ -102,8 +92,6 @@ stages:
       - results/wmt18/correlations/scores/eval.wmt18.en-cs.json:
           cache: false
       - results/wmt18/correlations/scores/eval.wmt18.en-de.json:
-          cache: false
-      - results/wmt18/correlations/scores/eval.wmt18.en-et.json:
           cache: false
       - results/wmt18/correlations/scores/eval.wmt18.en-fi.json:
           cache: false

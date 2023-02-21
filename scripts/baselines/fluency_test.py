@@ -117,13 +117,13 @@ def get_comet_score(predictions, references, sources, lang=None):
 
 
 models = [
-    {"id": "BLEU-1", "model": get_bleu_1_score},
-    {"id": "BLEU-2", "model": get_bleu_2_score},
-    {"id": "BLEU-3", "model": get_bleu_3_score},
-    {"id": "BLEU-4", "model": get_bleu_4_score},
-    {"id": "METEOR", "model": get_meteor_score},
-    {"id": "ROUGE-L", "model": get_rougel_score},
-    {"id": "BERTScore", "model": get_bertscore_score},
+    # {"id": "BLEU-1", "model": get_bleu_1_score},
+    # {"id": "BLEU-2", "model": get_bleu_2_score},
+    # {"id": "BLEU-3", "model": get_bleu_3_score},
+    # {"id": "BLEU-4", "model": get_bleu_4_score},
+    # {"id": "METEOR", "model": get_meteor_score},
+    # {"id": "ROUGE-L", "model": get_rougel_score},
+    # {"id": "BERTScore", "model": get_bertscore_score},
     {"id": "COMET", "model": get_comet_score},
 ]
 
@@ -147,7 +147,6 @@ def calculate_fluency(dataset):
         # calculate the scores
         fluency = []
         for data in tqdm(dataloader, desc=f"Processing lang pair {lang_pair}"):
-            model_id = data["model_id"]
             fluency_scores = {}
             for model in models:
                 reference_refs = model["model"](
@@ -158,22 +157,24 @@ def calculate_fluency(dataset):
                 )
                 reference_tests = [
                     model["model"](
-                        predictions=sentence,
-                        references=data["o_reference"],
+                        predictions=[
+                            list(sentence)[0] for sentence in data["j_reference"]
+                        ],
+                        references=[
+                            data["o_reference"][0]
+                            for _ in range(len(data["j_reference"]))
+                        ],
+                        sources=[
+                            data["o_source"][0] for _ in range(len(data["j_reference"]))
+                        ],
                         lang=language,
                     )
-                    for sentence in data["j_reference"]
                 ]
                 fluency_scores[model["id"]] = {
                     "test": reference_tests,
                     "ref": reference_refs,
                 }
-            fluency.append(
-                {
-                    **fluency_scores,
-                    "model_id": model_id,
-                }
-            )
+            fluency.append(fluency_scores)
         # save the metric scores
         rel_path = os.path.join("results", "baselines", dataset, "fluency")
         file_path = f"fluency.{lang_pair}.json"

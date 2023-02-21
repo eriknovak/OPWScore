@@ -1,7 +1,7 @@
 import sys
 import yaml
 
-from src.models.model import Seq_LM_EMD
+from src.models.model import OPWScore
 
 from src.data.preprocess import calculate_scores
 
@@ -32,7 +32,7 @@ nit = params["model"]["nit"]
 
 for language in languages:
     # prepare the model
-    model = Seq_LM_EMD(
+    model = OPWScore(
         distance=distance,
         weight_dist=weight_dist,
         temporal_type=temporal_type,
@@ -41,10 +41,6 @@ for language in languages:
         reg2=reg2,
         nit=nit,
     )
-
-    if datasets == None or "wmt17" in datasets:
-        print("WMT17 dataset: Start evaluation")
-        calculate_scores(model, "wmt17")
 
     if datasets == None or "wmt18" in datasets:
         print("WMT18 dataset: Start evaluation")

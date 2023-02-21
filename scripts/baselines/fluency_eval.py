@@ -69,8 +69,9 @@ models = [
     "BLEU-3",
     "BLEU-4",
     "METEOR",
-    "ROGUE-L",
+    "ROUGE-L",
     "BERTScore",
+    "COMET",
 ]
 
 if datasets == None or "wmt18" in datasets:

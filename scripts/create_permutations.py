@@ -26,14 +26,11 @@ def scramble_refs_wmt18():
         jumbles = []
         for data in tqdm(dataloader, desc="datasets"):
             source = data["source"][0]
-            system = data["system"][0]
             reference = data["reference"][0]
             jumbles.append(
                 {
                     "o_source": source,
-                    "o_system": system,
                     "o_reference": reference,
-                    "j_system": [TT.jumble(system) for _ in range(10)],
                     "j_reference": [TT.jumble(reference) for _ in range(10)],
                 }
             )

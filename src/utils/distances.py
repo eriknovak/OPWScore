@@ -134,22 +134,6 @@ def get_weight_dist(
     return dist
 
 
-# def get_prior_distribution(N: int, M: int, std: float = 1):
-#     """The prior distribution used to fit the Wasserstein distance to a particular pattern
-#     Args:
-#         N (int): The number of tokens in the source tensor.
-#         M (int): The number of tokens in the target tensor.
-#         std (float): The standard deviation used to define the prior distribution.
-#     Returns:
-#         torch.Tensor: The prior distribution.
-
-#     """
-#     Ni = torch.Tensor([[i / N for i in range(1, N + 1)] for _ in range(M)]).T
-#     Mj = torch.Tensor([[j / M for j in range(1, M + 1)] for _ in range(N)])
-#     Lij = torch.abs(Ni - Mj).div(math.sqrt(1 / N**2 + 1 / M**2)).pow(2)
-#     return Lij / (2 + std**2) + math.log(std * math.sqrt(2 * math.pi))
-
-
 def get_distance_matrix_from_diagonal_line(N: int, M: int):
     """Get the distance matrix of the (i, j) point from the diagonal line
     Args:

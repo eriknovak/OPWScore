@@ -17,7 +17,8 @@ DIRNAME = os.path.dirname(__file__)
 
 
 def get_dataset_fluency(lang_pair):
-    return read_json_file("data/processed/wmt18", f"permutations.{lang_pair}.json")
+    data = read_json_file("data/processed/wmt18", f"permutations.{lang_pair}.json")
+    return data
 
 
 def get_dataset(dataset, language):
@@ -174,7 +175,7 @@ class WMT20(pl.LightningDataModule):
     supported_languages = [
         "cs-en",
         "de-en",
-        "iu-en",
+        # "iu-en",
         "ja-en",
         "km-en",
         "pl-en",
@@ -184,27 +185,25 @@ class WMT20(pl.LightningDataModule):
         "zh-en",
         "en-cs",
         "en-de",
-        "en-iu",
+        # "en-iu",
         "en-ja",
-        "en-km",
+        # "en-km",
         "en-pl",
-        "en-ps",
+        # "en-ps",
         "en-ru",
         "en-ta",
         "en-zh",
-        "de-fr",
-        "fr-de",
     ]
 
     def __init__(self, language: str = None, batch_size: int = 32):
         # Please pick one among the available configs:
-        #   ['cs-en', 'de-en', 'iu-en', 'ja-en', 'km-en', 'pl-en', 'ps-en', 'ru-en', 'ta-en', 'zh-en', 'en-cs', 'en-de', 'en-iu', 'en-ja', 'en-km', 'en-pl', 'en-ps', 'en-ru', 'en-ta', 'en-zh', 'de-fr', 'fr-de']
+        #   ['cs-en', 'de-en', 'iu-en', 'ja-en', 'km-en', 'pl-en', 'ps-en', 'ru-en', 'ta-en', 'zh-en', 'en-cs', 'en-de', 'en-iu', 'en-ja', 'en-km', 'en-pl', 'en-ps', 'en-ru', 'en-ta', 'en-zh']
         super().__init__()
 
         if language not in self.supported_languages:
             raise Exception(
                 """Unsupported language! Please pick one among the available configs:
-                ['cs-en', 'de-en', 'iu-en', 'ja-en', 'km-en', 'pl-en', 'ps-en', 'ru-en', 'ta-en', 'zh-en', 'en-cs', 'en-de', 'en-iu', 'en-ja', 'en-km', 'en-pl', 'en-ps', 'en-ru', 'en-ta', 'en-zh', 'de-fr', 'fr-de']
+                ['cs-en', 'de-en', 'iu-en', 'ja-en', 'km-en', 'pl-en', 'ps-en', 'ru-en', 'ta-en', 'zh-en', 'en-cs', 'en-de', 'en-iu', 'en-ja', 'en-km', 'en-pl', 'en-ps', 'en-ru', 'en-ta', 'en-zh']
                 """
             )
 

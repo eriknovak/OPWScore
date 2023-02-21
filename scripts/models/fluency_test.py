@@ -1,6 +1,6 @@
 import sys
 import yaml
-from src.models.model import Seq_LM_EMD
+from src.models.model import OPWScore
 from src.data.preprocess import calculate_fluency
 
 # =====================================
@@ -30,7 +30,7 @@ nit = params["model"]["nit"]
 
 for language in languages:
     # prepare the model
-    model = Seq_LM_EMD(
+    model = OPWScore(
         distance=distance,
         weight_dist=weight_dist,
         temporal_type=temporal_type,

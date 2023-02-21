@@ -65,143 +65,143 @@ stages:
         model.distance: seq
         model.nit: 100
         model.reg1: 0.01
-        model.reg2: None
-        model.temporal_type: TCOT
-        model.weight_dist: uniform
+        model.reg2: 10
+        model.temporal_type: OPW
+        model.weight_dist: idf
     outs:
     - path: results/wmt18/correlations/scores.cs-en.json
-      md5: 50c58d4c108a974d46ecd3b565195516
-      size: 738116
+      md5: e573ee8126b9e68a35d74448aeba505b
+      size: 734626
     - path: results/wmt18/correlations/scores.de-en.json
-      md5: af1be9ec85499881a42e1efce5162453
-      size: 2410635
+      md5: cce0561ff454d20b38613b114a85402d
+      size: 2398026
     - path: results/wmt18/correlations/scores.en-cs.json
-      md5: b94119c321cf37e4d3669f03047561d4
-      size: 643613
+      md5: d0b75d8a2f3cdcd8f3abda36e2402e28
+      size: 641595
     - path: results/wmt18/correlations/scores.en-de.json
-      md5: 3bbee291534d378073221928117091a2
-      size: 860740
+      md5: 287efb52a809a3893892e6c41348aa6b
+      size: 856820
     - path: results/wmt18/correlations/scores.en-et.json
-      md5: 849a31a5007ff853b78f2e790ca5cdce
-      size: 1124558
+      md5: ceb466a9fb34dc3baa1f063ec1b94f18
+      size: 1121012
     - path: results/wmt18/correlations/scores.en-fi.json
-      md5: 39d5d27c7b939d5df6d15d9af6a8c1f9
-      size: 680867
+      md5: b8c474c2fe87454645533cdfdbc07baf
+      size: 679377
     - path: results/wmt18/correlations/scores.en-ru.json
-      md5: a6f9f0b81fef7447a026f375aa755111
-      size: 1422923
+      md5: 4ebeaf1c399149c4a9a2ff4bb8cec3d1
+      size: 1417659
     - path: results/wmt18/correlations/scores.en-tr.json
-      md5: 877d63b355b83fb5b0950462041131f1
-      size: 263268
+      md5: 70ab843a1c258670c6b24d93b058aac0
+      size: 262391
     - path: results/wmt18/correlations/scores.en-zh.json
-      md5: bce13af60af1997f7abb55f3e1c137ab
-      size: 1867852
+      md5: 9e91c06b3e09e6789fd78cb5ac006019
+      size: 1861754
     - path: results/wmt18/correlations/scores.et-en.json
-      md5: 5a87301b355293ae43caa48a6c0721cc
-      size: 1729786
+      md5: 6cf9bd9a298075d9e2409b83b7bc0908
+      size: 1723229
     - path: results/wmt18/correlations/scores.fi-en.json
-      md5: 69e9f7a3558a1544adea809c34a9ad44
-      size: 1260579
+      md5: 756c7aabbc48846e353fe912d9e4afd9
+      size: 1255872
     - path: results/wmt18/correlations/scores.ru-en.json
-      md5: 25ddba666261aec983777424f6f3219f
-      size: 1111829
+      md5: ceb00080da42c4261b71c1d3426f376c
+      size: 1106775
     - path: results/wmt18/correlations/scores.tr-en.json
-      md5: 7ce16436722fd29bb691c8c341a0aa40
-      size: 1086944
+      md5: 4d48afb08683f6d6200e921d7beb64dd
+      size: 1082170
     - path: results/wmt18/correlations/scores.zh-en.json
-      md5: 7f11d7eac113294d249a5f8723531cd1
-      size: 2138716
+      md5: 148841bf2edc3b84e639a50d46d038b4
+      size: 2130096
   evaluate:
     cmd: python scripts/models/performance_eval.py wmt18
     deps:
     - path: results/wmt18/correlations/scores.cs-en.json
-      md5: 50c58d4c108a974d46ecd3b565195516
-      size: 738116
+      md5: e573ee8126b9e68a35d74448aeba505b
+      size: 734626
     - path: results/wmt18/correlations/scores.de-en.json
-      md5: af1be9ec85499881a42e1efce5162453
-      size: 2410635
+      md5: cce0561ff454d20b38613b114a85402d
+      size: 2398026
     - path: results/wmt18/correlations/scores.en-cs.json
-      md5: b94119c321cf37e4d3669f03047561d4
-      size: 643613
+      md5: d0b75d8a2f3cdcd8f3abda36e2402e28
+      size: 641595
     - path: results/wmt18/correlations/scores.en-de.json
-      md5: 3bbee291534d378073221928117091a2
-      size: 860740
+      md5: 287efb52a809a3893892e6c41348aa6b
+      size: 856820
     - path: results/wmt18/correlations/scores.en-et.json
-      md5: 849a31a5007ff853b78f2e790ca5cdce
-      size: 1124558
+      md5: ceb466a9fb34dc3baa1f063ec1b94f18
+      size: 1121012
     - path: results/wmt18/correlations/scores.en-fi.json
-      md5: 39d5d27c7b939d5df6d15d9af6a8c1f9
-      size: 680867
+      md5: b8c474c2fe87454645533cdfdbc07baf
+      size: 679377
     - path: results/wmt18/correlations/scores.en-ru.json
-      md5: a6f9f0b81fef7447a026f375aa755111
-      size: 1422923
+      md5: 4ebeaf1c399149c4a9a2ff4bb8cec3d1
+      size: 1417659
     - path: results/wmt18/correlations/scores.en-tr.json
-      md5: 877d63b355b83fb5b0950462041131f1
-      size: 263268
+      md5: 70ab843a1c258670c6b24d93b058aac0
+      size: 262391
     - path: results/wmt18/correlations/scores.en-zh.json
-      md5: bce13af60af1997f7abb55f3e1c137ab
-      size: 1867852
+      md5: 9e91c06b3e09e6789fd78cb5ac006019
+      size: 1861754
     - path: results/wmt18/correlations/scores.et-en.json
-      md5: 5a87301b355293ae43caa48a6c0721cc
-      size: 1729786
+      md5: 6cf9bd9a298075d9e2409b83b7bc0908
+      size: 1723229
     - path: results/wmt18/correlations/scores.fi-en.json
-      md5: 69e9f7a3558a1544adea809c34a9ad44
-      size: 1260579
+      md5: 756c7aabbc48846e353fe912d9e4afd9
+      size: 1255872
     - path: results/wmt18/correlations/scores.ru-en.json
-      md5: 25ddba666261aec983777424f6f3219f
-      size: 1111829
+      md5: ceb00080da42c4261b71c1d3426f376c
+      size: 1106775
     - path: results/wmt18/correlations/scores.tr-en.json
-      md5: 7ce16436722fd29bb691c8c341a0aa40
-      size: 1086944
+      md5: 4d48afb08683f6d6200e921d7beb64dd
+      size: 1082170
     - path: results/wmt18/correlations/scores.zh-en.json
-      md5: 7f11d7eac113294d249a5f8723531cd1
-      size: 2138716
+      md5: 148841bf2edc3b84e639a50d46d038b4
+      size: 2130096
     - path: scripts/models/performance_eval.py
       md5: a34ab4120606ac0ecac6472322256c88
       size: 2229
     outs:
     - path: results/wmt18/correlations/scores/eval.wmt18.cs-en.json
-      md5: c5acfedbb929abdccd1b8a8a1839d884
+      md5: bf95dc503e3654e5146d49587fbbd133
       size: 104
     - path: results/wmt18/correlations/scores/eval.wmt18.de-en.json
-      md5: 9a532099a854b64985e3899b382abd7b
-      size: 103
-    - path: results/wmt18/correlations/scores/eval.wmt18.en-cs.json
-      md5: 5d2ffb72352f8b9dd0b355da9154a97e
-      size: 104
-    - path: results/wmt18/correlations/scores/eval.wmt18.en-de.json
-      md5: c7aceb2ec6806ea1d826411cba78560f
+      md5: 3e766184f30dd9059e05d5dbf4d9dd22
       size: 102
+    - path: results/wmt18/correlations/scores/eval.wmt18.en-cs.json
+      md5: eb9eb7cef75b1dfecb5a7121fc4984bb
+      size: 102
+    - path: results/wmt18/correlations/scores/eval.wmt18.en-de.json
+      md5: bf3ee0d2186cd7accfa718404495f071
+      size: 104
     - path: results/wmt18/correlations/scores/eval.wmt18.en-et.json
-      md5: 7930f67b6f53895443c1de35d8c750f2
-      size: 103
+      md5: 98a5c0f64b6c1151e889003bf5dbedfb
+      size: 102
     - path: results/wmt18/correlations/scores/eval.wmt18.en-fi.json
-      md5: 4c993ae7b49f4548ed7442415d076540
+      md5: 75a0d6279ed9d98119066dd2e1d74251
       size: 103
     - path: results/wmt18/correlations/scores/eval.wmt18.en-ru.json
-      md5: 985b6c846ed317ae58ea09b0838a40e9
+      md5: 047d0e1f0cd32f65eeba3681b26cf811
       size: 103
     - path: results/wmt18/correlations/scores/eval.wmt18.en-tr.json
-      md5: 0071498e48f1fa6fb68e2875d5d6599c
-      size: 104
-    - path: results/wmt18/correlations/scores/eval.wmt18.en-zh.json
-      md5: eb875039c1d8e102a97830bb79bbb1f3
+      md5: b4fd16ed09806856071c213fbc6c34de
       size: 103
+    - path: results/wmt18/correlations/scores/eval.wmt18.en-zh.json
+      md5: f29a52efe98be537ef52073568fa07f7
+      size: 102
     - path: results/wmt18/correlations/scores/eval.wmt18.et-en.json
-      md5: 4e7ae1407f2a3a28ea4feda7c856c3ba
+      md5: 87784da23385f01ca6a9c2ef3c1c0fb9
       size: 103
     - path: results/wmt18/correlations/scores/eval.wmt18.fi-en.json
-      md5: 6eae0ee7a9325e6aac8934d9ec6f41ba
-      size: 104
+      md5: a76f5a0bbcbe1deb2ca48e385f090579
+      size: 103
     - path: results/wmt18/correlations/scores/eval.wmt18.ru-en.json
-      md5: bf42b0a627649a02a245795c90b5e70d
-      size: 102
+      md5: 2f45d00ce0af0a87deada6b5ff72e4cf
+      size: 104
     - path: results/wmt18/correlations/scores/eval.wmt18.tr-en.json
-      md5: 87f0c0c15659e5b2589935993ed69e1d
+      md5: 56021736dd91342820ecd503d07fc086
       size: 104
     - path: results/wmt18/correlations/scores/eval.wmt18.zh-en.json
-      md5: 3d7768f0097f7662dee1a90736919186
-      size: 103
+      md5: 0e3cd9c2d572bc04c982912053189dc2
+      size: 104
   data_prep:
     cmd: python scripts/models/compute_weights.py en,cs,de,et,fi,ru,tr,zh
     deps:

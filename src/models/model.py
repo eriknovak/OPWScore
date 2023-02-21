@@ -26,7 +26,7 @@ from src.utils.weight_store import WeightStore
 # Predefined Weight Stores Paths
 # ===================================================================
 
-WEIGHT_STORES_PATH = os.path.join("results", "weight_stores")
+WEIGHT_STORES_PATH = os.path.join("..", "results", "weight_stores")
 
 # ===================================================================
 # Model Definitions
@@ -36,12 +36,12 @@ WEIGHT_STORES_PATH = os.path.join("results", "weight_stores")
 torch.autograd.set_detect_anomaly(True)
 
 
-class Seq_LM_EMD(pl.LightningModule):
+class OPWScore(pl.LightningModule):
     def __init__(
         self,
-        distance: str = "emd",
-        weight_dist: str = "uniform",
-        temporal_type: str = "TCOT",
+        distance: str = "seq",
+        weight_dist: str = "idf",
+        temporal_type: str = "OPW",
         lang: str = "en",
         reg1: float = 0.1,
         reg2: float = 0.1,

@@ -7,7 +7,7 @@ with open("requirements.txt", "r") as fh:
     requirements = fh.readlines()
 
 setup(
-    name="Seq-LM-EMD",
+    name="OPWScore",
     version="0.0.0",
     author="Erik Novak",
     author_email="erik.novak@ijs.si",

@@ -21,7 +21,7 @@ def run_statistical_tests(dataset, filename):
     """Evaluates the model's performance"""
 
     # read the test results
-    results = read_json_file(os.path.join(REL_PATH, dataset), filename)
+    results = read_json_file(os.path.join(REL_PATH, dataset, "fluency"), filename)
 
     # get all system and human scores
     diffs = [np.mean(k["test"]) - k["ref"] for k in results]
@@ -55,7 +55,7 @@ def evaluate_dataset(dataset):
         evaluation = run_statistical_tests(dataset, fluency_scores_file)
         filename = f"eval.{dataset}.{lang_pair}.fluency.json"
         save_scores_to_file(
-            REL_PATH, dataset, "fluency", "scores", filename, evaluation
+            os.path.join(REL_PATH, dataset, "fluency", "scores"), filename, evaluation
         )
 
 

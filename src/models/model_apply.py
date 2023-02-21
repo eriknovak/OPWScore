@@ -1,7 +1,7 @@
 import os
 import yaml
 
-from src.models.model import Seq_LM_EMD
+from src.models.model import OPWScore
 
 # =====================================
 # Import Training Parameters
@@ -20,7 +20,7 @@ nit = params["model_params"]["nit"]
 # Define the Model
 # =====================================
 
-model = Seq_LM_EMD(
+model = OPWScore(
     distance=distance,
     weight_dist=weight_dist,
     temporal_type=temporal_type,

@@ -68,7 +68,10 @@ def calculate_fluency(model, dataset):
         for data in tqdm(dataloader, desc="datasets"):
             with torch.no_grad():
                 refs_dist, _, _ = model(data["o_reference"], data["o_reference"])
-                test_dists, _, _ = model(data["o_reference"], data["j_reference"])
+                test_dists, _, _ = model(
+                    data["o_reference"][0],
+                    [list(sent)[0] for sent in data["j_reference"]],
+                )
                 test_dist = [td.item() for td in test_dists]
             fluency.append(
                 {

@@ -1,6 +1,6 @@
-# Seq-LM-EMD
+# OPWScore
 
-This project contains the code for running the Seq-LM-EMD experiments.
+This project contains the code for running the OPWScore experiments.
 
 ## ☑️ Requirements
 
@@ -43,10 +43,10 @@ Install [conda][conda], a program for creating python virtual environments. Then
 
 ```bash
 # create a new virtual environment
-conda create --name seq-lm-emd python=3.8 pip
+conda create --name opwscore python=3.8 pip
 
 # activate the environment
-conda activate seq-lm-emd
+conda activate opwscore
 
 # deactivate the environment
 deactivate
@@ -62,21 +62,30 @@ pip install -e .
 
 ## 🗃️ Data
 
-TODO: Provide information about the data used in the experiments
+The data used in the experiments are examples from the WMT17, WMT18 and WMT20
+metric evaluation data sets.
 
-- Where is the data found
-- How is the data structured
+The data sets are taken from the COMET metric page. Download the files and store them as stated in the table.
+
+| Data set | Folder Save Path | URL                                                                                      |
+| -------- | ---------------- | ---------------------------------------------------------------------------------------- |
+| WMT17    | `data/raw/wmt17` | https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2017-da.csv.tar.gz |
+| WMT18    | `data/raw/wmt18` | https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2018-da.csv.tar.gz |
+| WMT20    | `data/raw/wmt20` | https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2020-da.csv.tar.gz |
 
 ## ⚗️ Experiments
 
 To run the experiments, run the folowing commands:
 
 ```bash
-# generate the test model outputs
-python src/models/model_test.py sts,wmt18
+# calculate the IDF weights
+python scripts/models/compute_weights.py en,cs,de,fi,ru,tr,zh
 
-# evaluate the model outputs
-python src/models/model_eval.py sts,wmt18
+# run the experiments on the selected languages and data sets
+python scripts/models/performance_test.py en,cs,de,fi,ru,tr,zh wmt18,wmt20
+
+# calculate the models performance scores on the provided data sets
+python scripts/models/performance_eval.py wmt18,wmt20
 ```
 
 ### 🦉 Using DVC
@@ -90,23 +99,6 @@ dvc exp run
 
 This command will read the `dvc.yaml` file and execute the stages accordingly, taking
 any dependencies into consideration.
-
-To run an experiment with changed parameters, run one of the following lines:
-
-```bash
-# Run the corresponding line of code to queue the experiment
-dvc exp run -S model_params.dist_type=seq  -S model_params.reg1=0.2  -S model_params.reg2=0.2  -S model_params.nit=100
-dvc exp run -S model_params.dist_type=emd  -S model_params.reg1=0.2  -S model_params.reg2=None -S model_params.nit=100
-dvc exp run -S model_params.dist_type=cls  -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
-dvc exp run -S model_params.dist_type=max  -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
-dvc exp run -S model_params.dist_type=mean -S model_params.reg1=None -S model_params.reg2=None -S model_params.nit=None
-
-# Run all of the queued experiments
-dvc exp run
-
-# Clear the experiments queue and start over
-dvc exp remove --all
-```
 
 Afterwards, we can compare the performance of the models by running:
 
@@ -127,58 +119,18 @@ The results folder contain the experiment
 
 TODO: Provide a list/table of experiment results
 
-## 📦️ Available models
-
-This project producted the following models:
-
-- TODO: Name and the link to the model
-
-## 🚀 Using the trained model
-
-When the model is trained, the following script shows how one can use the model:
-
-```python
-TODO: Provide example on how to use the model
-```
-
 ## 📚 Papers
 
 In case you use any of the components for your research, please refer to
 (and cite) the papers:
 
-TODO: Paper
-
-### 📓 Related work
-
-T. Zhang, V. Kishore, F. Wu, K. Q. Weinberger, and Y. Artzi, “BERTScore:
-Evaluating Text Generation with BERT,” Apr. 2020. Accessed: Jun. 10, 2022.
-[Online]. Available: http://www.openreview.net/pdf?id=SkeHuCVFDr
-
-W. Zhao, M. Peyrard, F. Liu, Y. Gao, C. M. Meyer, and S. Eger, “MoverScore: Text
-generation evaluating with contextualized embeddings and earth mover distance,”
-presented at the Proceedings of the 2019 Conference on Empirical Methods in Natural
-Language Processing and the 9th International Joint Conference on Natural Language
-Processing (EMNLP-IJCNLP), Hong Kong, China, 2019. doi: 10.18653/v1/d19-1053.
-
-B. Su and G. Hua, “Order-preserving Wasserstein distance for sequence matching,”
-presented at the 2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR),
-Honolulu, HI, Jul. 2017. doi: 10.1109/cvpr.2017.310.
-
-## 🚧 Work In Progress
-
-- [ ] Setup script
-- [ ] Code for data prep
-- [ ] Code for model training
-- [ ] Code for model validation
-- [ ] Code for model evaluation
-- [ ] Modify `params.yaml` and modify the scripts to read the params from the file
-- [ ] Modify DVC pipelines for model training and evaluation
+TODO
 
 ## 📣 Acknowledgments
 
 This work is developed by [Department of Artificial Intelligence][ailab] at [Jozef Stefan Institute][ijs].
 
-This work is supported by the Slovenian Research Agency and the TODO.
+This work was supported by the Slovenian Research Agency, and the European Union's Horizon 2020 project Humane AI Net [H2020-ICT-952026] and the Horizon Europe project enRichMyData [HE-101070284].
 
 [python]: https://www.python.org/
 [conda]: https://www.anaconda.com/
