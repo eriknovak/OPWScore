@@ -67,11 +67,11 @@ metric evaluation data sets.
 
 The data sets are taken from the COMET metric page. Download the files and store them as stated in the table.
 
-| Data set | Folder Save Path | URL                                                                                      |
-| -------- | ---------------- | ---------------------------------------------------------------------------------------- |
-| WMT17    | `data/raw/wmt17` | https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2017-da.csv.tar.gz |
-| WMT18    | `data/raw/wmt18` | https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2018-da.csv.tar.gz |
-| WMT20    | `data/raw/wmt20` | https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2020-da.csv.tar.gz |
+| Data set | Folder Save Path | Link                                                                                                 |
+| -------- | ---------------- | ---------------------------------------------------------------------------------------------------- |
+| WMT17    | `data/raw/wmt17` | [Download](https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2017-da.csv.tar.gz) |
+| WMT18    | `data/raw/wmt18` | [Download](https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2018-da.csv.tar.gz) |
+| WMT20    | `data/raw/wmt20` | [Download](https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2020-da.csv.tar.gz) |
 
 ## ⚗️ Experiments
 
@@ -81,11 +81,17 @@ To run the experiments, run the folowing commands:
 # calculate the IDF weights
 python scripts/models/compute_weights.py en,cs,de,fi,ru,tr,zh
 
-# run the experiments on the selected languages and data sets
+# run the adequacy experiments on the selected languages and data sets
 python scripts/models/performance_test.py en,cs,de,fi,ru,tr,zh wmt18,wmt20
 
-# calculate the models performance scores on the provided data sets
+# calculate the model's adequacy performance scores on the provided data sets
 python scripts/models/performance_eval.py wmt18,wmt20
+
+# run the fluency experiments on the selected data sets
+python scripts/models/fluency_test.py wmt18
+
+# calculate the model's fluency performance scores on the provided data sets
+python scripts/models/fluency_eval.py wmt18
 ```
 
 ### 🦉 Using DVC
@@ -98,7 +104,7 @@ dvc exp run
 ```
 
 This command will read the `dvc.yaml` file and execute the stages accordingly, taking
-any dependencies into consideration.
+any dependencies into consideration. **NOTE: This will only run the experiments on the WMT18 data sets.**
 
 Afterwards, we can compare the performance of the models by running:
 
@@ -115,9 +121,7 @@ dvc exp apply [exp-id]
 
 ### Results
 
-The results folder contain the experiment
-
-TODO: Provide a list/table of experiment results
+The `results` folder contain the experimental results.
 
 ## 📚 Papers
 
