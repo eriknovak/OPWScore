@@ -135,8 +135,6 @@ class OPWScore(pl.LightningModule):
             sys_attns = sys_attns.repeat(ref_embed.shape[0], 1)
             sys_input_ids = sys_input_ids.repeat(ref_embed.shape[0], 1)
 
-        # TODO: remove special tokens ([CLS], [SEP], <s>, </s>) from tensors
-
         if self.hparams.distance == "seq":
             return get_seq_wasserstein_dist(
                 self.hparams.weight_dist,
