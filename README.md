@@ -16,19 +16,16 @@ Before starting the project make sure these requirements are available:
 
 First create the virtual environment where all the modules will be stored.
 
-#### Using virtualenv
+#### Using venv
 
-Using the `virtualenv` command, run the following commands:
+Using the `venv` command, run the following commands:
 
 ```bash
-# install the virtual env command
-pip install virtualenv
-
 # create a new virtual environment
-virtualenv -p python ./.venv
+python -m venv .venv
 
 # activate the environment (UNIX)
-./.venv/bin/activate
+source ./.venv/bin/activate
 
 # activate the environment (WINDOWS)
 ./.venv/Scripts/activate
