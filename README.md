@@ -2,6 +2,23 @@
 
 This project contains the code for running the OPWScore experiments.
 
+## 🔃 Citation
+
+If you find this code useful, feel free to reference the following paper:
+
+```
+@article{Novak2024-et,
+  title={Evaluating Text Generation Model Performance by Combining Semantic Meaning and Word Order}, 
+  author={Novak, Erik and Bizjak, Luka and Mladenić, Dunja and Grobelnik, Marko},
+  journal={IEEE Access},
+  year={2024},
+  volume={12},
+  number={},
+  pages={95265-95277},
+  doi={10.1109/ACCESS.2024.3426082}
+}
+```
+
 ## ☑️ Requirements
 
 Before starting the project make sure these requirements are available:
