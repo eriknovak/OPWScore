@@ -6,7 +6,7 @@ This project contains the code for running the OPWScore experiments.
 
 If you find this code useful, feel free to reference the following paper:
 
-```
+```bib
 @article{Novak2024-et,
   title={Evaluating Text Generation Model Performance by Combining Semantic Meaning and Word Order}, 
   author={Novak, Erik and Bizjak, Luka and Mladenić, Dunja and Grobelnik, Marko},
@@ -136,24 +136,6 @@ dvc exp apply [exp-id]
 ### Results
 
 The `results` folder contain the experimental results.
-
-## 📚 Papers
-
-In case you use any of the components for your research, please refer to
-(and cite) the papers:
-
-```bib
-@ARTICLE{ne-opwscore-2024,
-  author={Novak, Erik and Bizjak, Luka and Mladenić, Dunja and Grobelnik, Marko},
-  journal={IEEE Access}, 
-  title={Evaluating Text Generation Model Performance by Combining Semantic Meaning and Word Order}, 
-  year={2024},
-  volume={12},
-  number={},
-  pages={95265-95277},
-  doi={10.1109/ACCESS.2024.3426082}
-}
-```
 
 ## 📣 Acknowledgments
 
